@@ -1,0 +1,42 @@
+<% extend '../layouts/layout' %>
+
+<div class="container">
+<section class="section">
+    <h1 class="title">Posts</h1>
+    <hr />
+
+
+<% if @posts?.length : %>
+    <% for post in @posts : %>
+        <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+        <div class="card">
+        <header class="card-header">
+            <a class="card-header-title" href="<%- post.url %>">
+                    <%- post.title %>
+            </a>
+        </header>
+        <div class="card-content">
+            <div class="content blog-preview">
+                <p>
+                    <%- post.htmlContent %>
+                </p>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <p class="card-footer-item"><%- post.createdAtString %></p>
+        </footer>
+        </div>
+        </div>
+        </div>
+    <% end %>
+<% else : %>
+    <article class="message is-danger">
+        <div class="message-body has-text-centered">
+            No blog posts at this time
+        </div>
+    </article>
+<% end %>
+
+</section>
+</div>

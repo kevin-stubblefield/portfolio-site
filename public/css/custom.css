@@ -1,0 +1,33 @@
+* {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.logo {
+    font-family: 'Exo', sans-serif;
+    font-size: 2em;
+}
+
+.title {
+    font-family: 'Exo', sans-serif;
+    font-size: 1.75em;
+}
+
+.fa {
+    color: #4D642D;
+}
+
+.fa:hover {
+    color: #8EA86C;
+}
+
+a.card-header-title:hover {
+    color: #8EA86C;
+}
+
+.hero.is-success {
+    background-color: #005A31;
+}
+
+.notification.is-primary {
+    background-color: #005A31;
+}
