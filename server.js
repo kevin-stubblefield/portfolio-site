@@ -23,10 +23,10 @@ var PORT = process.env.PORT || 3000;
 app.set('view engine', 'ect');
 app.engine('ect', ectRenderer.render);
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRoutes);
 app.use('/blog', blogRoutes);
 app.use('/api', apiRoutes);
+app.use(express.static(path.join(__dirname, 'public')));
 
 schedule.scheduleJob('0 0 17 * * 0', function () {
     process.env.TOKEN_SECRET = require('crypto').randomBytes(48).toString('hex');

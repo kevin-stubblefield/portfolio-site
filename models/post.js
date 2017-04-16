@@ -17,7 +17,7 @@ var PostSchema = Schema({
 PostSchema
     .virtual('url')
     .get(function () {
-        return '/blog/' + this._id;
+        return 'blog/' + this._id;
     });
 
 PostSchema
@@ -28,7 +28,6 @@ PostSchema
 
 PostSchema.pre('validate', function (next) {
     this.htmlContent = converter.makeHtml(JSON.parse(this.markdownContent));
-    console.log(this.htmlContent);
     next();
 });
 

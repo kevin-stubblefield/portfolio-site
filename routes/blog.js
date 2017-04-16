@@ -22,7 +22,18 @@ router.get('/', function (req, res) {
 
 
 router.get('/:id', function (req, res) {
+    var id = req.params.id;
 
+    Post.findById(id, function (error, post) {
+        if (error) {
+            console.error('Could not find specified post', error);
+        } else {
+            res.render('blogPost', {
+                title: post.title,
+                post: post
+            });
+        }
+    });
 });
 
 router.use(function (req, res, next) {

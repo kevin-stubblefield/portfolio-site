@@ -1,0 +1,21 @@
+<% extend '../layouts/layout' %>
+
+<div class="container">
+    <div class="section">
+        <div class="tile is-ancestor">
+        <div class="tile is-parent">
+        </div>
+        <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+                <p class="title"><%- @post.title %></p>
+                <p class="subtitle"><%- @post.createdAtString %></p>
+                <div class="content">
+                    <%- @post.htmlContent %>
+                </div>
+            </article>
+        </div>
+        <div class="tile is-parent">
+        </div>
+        </div>
+    </div>
+</div>
