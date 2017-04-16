@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/kevin-stubblefield/portfolio-site#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
+    "crypto": "0.0.3",
     "dotenv": "^4.0.0",
     "ect": "^0.5.9",
     "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
     "moment": "^2.18.1",
     "mongoose": "^4.9.4",
+    "node-schedule": "^1.2.1",
     "showdown": "^1.6.4",
     "underscore": "^1.8.3"
   }

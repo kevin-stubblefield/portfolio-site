@@ -7,9 +7,11 @@ var path = require('path');
 var ect = require('ect');
 var ectRenderer = ect({ watch: true, root: __dirname + '/views/layouts', ext: '.ect' });
 var mongoose = require('mongoose');
+var schedule = require('node-schedule');
 
 var indexRoutes = require('./routes/index.js');
 var blogRoutes = require('./routes/blog.js');
+var apiRoutes = require('./routes/api.js');
 
 var mongoDB = process.env.DB_CONNSTRING;
 mongoose.connect(mongoDB);
@@ -24,7 +26,11 @@ app.engine('ect', ectRenderer.render);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRoutes);
 app.use('/blog', blogRoutes);
-app.use(bodyParser.json());
+app.use('/api', apiRoutes);
+
+schedule.scheduleJob('0 0 17 * * 0', function () {
+    process.env.TOKEN_SECRET = require('crypto').randomBytes(48).toString('hex');
+});
 
 app.listen(PORT, function () {
     console.log('Listening on port ' + PORT);
