@@ -6,6 +6,28 @@ var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+requireAuth = function (req, res, next) {
+    var body = _.pick(req.body, 'token');
+
+    var token = body.token || req.query.token || req.cookies.token;
+
+    if (token) {
+        jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
+            if (error) {
+                return res.status(403).render('403', { title: '403 Access Denied' });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        return res.status(403).render('403', { title: '403 Access Denied' });
+    }
+};
 
 router.get('/', function (req, res) {
     Post.find(function (error, posts) {
@@ -20,6 +42,11 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/createPost', requireAuth, function (req, res) {
+    res.render('createPost', {
+        title: 'Write New Post'
+    });
+});
 
 router.get('/:id', function (req, res) {
     var id = req.params.id;
@@ -36,27 +63,8 @@ router.get('/:id', function (req, res) {
     });
 });
 
-router.use(function (req, res, next) {
-    var body = _.pick(req.body, 'token');
-
-    var token = body.token;
-
-    if (token) {
-        jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
-            if (error) {
-                return res.status(400).json({ success: false, message: 'Could not authenticate token' });
-            } else {
-                req.decoded = decoded;
-                next();
-            }
-        });
-    } else{
-        return res.status(403).send();
-    }
-});
-
-router.post('/', function (req, res) {
-    var body = _.pick(req.body, 'title', 'markdownContent');
+router.post('/', requireAuth, function (req, res) {
+    var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
 
     if (body.markdownContent.trim() === '') {
         return res.status(400).send();
@@ -71,7 +79,11 @@ router.post('/', function (req, res) {
         }
     });
 
-    res.sendStatus(200);
+    if (body.fromBrowser === 'true') {
+        res.redirect('/blog');
+    } else {
+        res.sendStatus(200);
+    }
 });
 
 module.exports = router;
