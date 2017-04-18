@@ -14,7 +14,7 @@ var indexRoutes = require('./routes/index.js');
 var blogRoutes = require('./routes/blog.js');
 var apiRoutes = require('./routes/api.js');
 
-var mongoDB = process.env.PROD_MONGODB;
+var mongoDB = process.env.MONGOLAB_URI;
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
