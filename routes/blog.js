@@ -30,7 +30,7 @@ requireAuth = function (req, res, next) {
 };
 
 router.get('/', function (req, res) {
-    Post.find(function (error, posts) {
+    Post.find().exec(function (error, posts) {
         if (error) {
             console.error('Could not find posts', error);
         } else {
