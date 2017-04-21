@@ -42,19 +42,21 @@ router.post('/authenticate', function (req, res) {
 });
 
 router.post('/signup', function (req, res) {
-    var body = _.pick(req.body, 'username', 'password');
+    // var body = _.pick(req.body, 'username', 'password');
 
-    if (body.hasOwnProperty('password') && (body.password.length < 8 || body.password.length > 99)) {
-        return res.status(400).render('400', { title: '400 Bad Request' });
-    }
+    // if (body.hasOwnProperty('password') && (body.password.length < 8 || body.password.length > 99)) {
+    //     return res.status(400).render('400', { title: '400 Bad Request' });
+    // }
 
-    var newUser = new User(body);
-    newUser.save(function (error) {
-        if (error) {
-            console.error('Could not sign up user', error);
-            return res.status(500).send();
-        }
-    });
+    // var newUser = new User(body);
+    // newUser.save(function (error) {
+    //     if (error) {
+    //         console.error('Could not sign up user', error);
+    //         return res.status(500).send();
+    //     }
+    // });
+
+    return res.status(404).render('404', { title: '404 File Not Found' });
 });
 
 router.get('/login', function (req, res) {

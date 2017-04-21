@@ -35,5 +35,5 @@ schedule.scheduleJob('0 0 17 * * 0', function () {
 });
 
 app.listen(PORT, function () {
-    console.log('Listening on port ' + PORT);
+    console.log('Listening on port ' + PORT + ' ' + __dirname);
 });
