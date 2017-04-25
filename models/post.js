@@ -23,7 +23,7 @@ PostSchema
 PostSchema
     .virtual('createdAtString')
     .get(function () {
-        return moment(this.createdAt).format('dddd, MMM Do, YYYY');
+        return moment(this.createdAt).utcOffset('-0600').format('dddd, MMM Do, YYYY');
     });
 
 PostSchema.pre('validate', function (next) {
