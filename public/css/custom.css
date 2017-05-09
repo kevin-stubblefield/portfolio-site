@@ -31,3 +31,47 @@ a.card-header-title:hover {
 .notification.is-primary {
     background-color: #005A31;
 }
+
+.card:not(.active) {
+    display: none;
+}
+
+.dots {
+    text-align: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background: black;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.dot.active {
+    opacity: 1;
+}
+
+.frackn {
+    max-width: 325px;
+    max-height: 325px;
+    margin: 0 auto;
+}
+
+.column.is-1 {
+    cursor: pointer;
+}
+
+.fa-chevron-right, .fa-chevron-left {
+    color: #8EA86C;
+}
+
+.fa-chevron-right:hover, .fa-chevron-left:hover {
+    color: #4D642D;
+}
+
+.column.is-1:hover {
+    background: #008046;
+}
