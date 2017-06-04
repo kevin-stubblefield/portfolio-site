@@ -61,42 +61,6 @@ GENERAL LAYOUT
 }
 
 /*****************
-HEXAGON
-*****************/
-
-.hexagon {
-    width: 100px;
-    height: 55px;
-    background: #2EC4B6;
-    position: relative;
-    margin: 25px auto;
-}
-
-.hexagon:before {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: -25px;
-    left: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 25px solid #2EC4B6;
-}
-
-.hexagon:after {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    border-top: 25px solid #2EC4B6;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-}
-
-/*****************
 HEADER
 *****************/
 
@@ -117,6 +81,41 @@ HEADER
 
 .nav a {
     margin-left: 15px;
+}
+
+/*****************
+CONTENT
+*****************/
+
+.content {
+    display: flex;
+    display: -ms-flex;
+
+    justify-content: space-around;
+    -ms-flex-pack: space-around;
+}
+
+.project {
+    width: 320px;
+}
+
+.project .image {
+    width: 320px;
+}
+
+.project .title {
+    font-size: 1.25em;
+    font-family: "Roboto", "sans-serif";
+    text-align: center;
+    color: #444;
+    border-bottom: 1px solid #777;
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+
+.project .caption {
+    margin-top: 15px;
+    padding: 0 5px;
 }
 
 /*****************
