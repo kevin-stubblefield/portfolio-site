@@ -1,15 +1,9 @@
 <% extend '../layouts/layout' %>
 
 <div class="container">
-<section class="section">
-    <h1 class="title">Posts</h1>
-    <hr />
-
 
 <% if @posts?.length : %>
     <% for post in @posts : %>
-        <div class="columns">
-        <div class="column is-half is-offset-one-quarter">
         <div class="card">
         <header class="card-header">
             <a class="card-header-title" href="<%- post.url %>">
@@ -27,16 +21,13 @@
             <p class="card-footer-item"><%- post.createdAtString %></p>
         </footer>
         </div>
-        </div>
-        </div>
     <% end %>
 <% else : %>
-    <article class="message is-danger">
-        <div class="message-body has-text-centered">
+    <div class="message warning">
+        <p>
             No blog posts at this time
-        </div>
-    </article>
+        </p>
+    </div>
 <% end %>
 
-</section>
 </div>
