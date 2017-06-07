@@ -30,16 +30,18 @@ requireAuth = function (req, res, next) {
 };
 
 router.get('/', function (req, res) {
-    Post.find(function (error, posts) {
-        if (error) {
-            console.error('Could not find posts', error);
-        } else {
+    Post
+        .fetchAll()
+        .then(function (posts) {
+            posts = posts.toJSON();
             res.render('blog', {
                 title: 'My Blog',
                 posts: posts
             });
-        }
-    });
+        }).catch(function (error) {
+            console.log('Unable to connect to db\n' + error);
+            res.sendStatus(500);
+        });
 });
 
 router.get('/createPost', requireAuth, function (req, res) {
@@ -51,33 +53,34 @@ router.get('/createPost', requireAuth, function (req, res) {
 router.get('/:id', function (req, res) {
     var id = req.params.id;
 
-    Post.findById(id, function (error, post) {
-        if (error) {
-            console.error('Could not find specified post', error);
-        } else {
+    new Post({ 'id': id })
+        .fetch()
+        .then(function (post) {
+            post = post.toJSON();
             res.render('blogPost', {
                 title: post.title,
                 post: post
             });
-        }
-    });
+        }).catch(function (error) {
+            console.error('Unable to fetch post', error);
+        });
 });
 
-router.post('/', requireAuth, function (req, res) {
-    var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
+router.post('/', /*requireAuth,*/ function (req, res) {
+    var body = _.pick(req.body, 'title', 'markdown_content', 'fromBrowser');
 
-    if (body.markdownContent.trim() === '') {
+    if (body.markdown_content.trim() === '') {
         return res.status(400).send();
     }
 
-    body.markdownContent = JSON.stringify(body.markdownContent);
-
     var newPost = new Post(body);
-    newPost.save(function (error) {
-        if (error) {
+
+    newPost
+        .save()
+        .then(function (model) {
+        }).catch(function (error) {
             console.error('Could not save new post', error);
-        }
-    });
+        });
 
     if (body.fromBrowser === 'true') {
         res.redirect('/blog');

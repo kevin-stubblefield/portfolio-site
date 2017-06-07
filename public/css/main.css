@@ -146,12 +146,46 @@ CONTENT
 }
 
 /*****************
+BLOG
+*****************/
+
+.post {
+    margin: 0 auto 50px;
+    width: 480px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    box-shadow: 0 5px 6px -5px #444;
+}
+
+.post:last-of-type {
+    margin-bottom: 0;
+}
+
+.post .header, .post .body, .post .footer {
+    margin: 0;
+    padding: 10px;
+}
+
+.post .header {
+    font-size: 1.25em;
+}
+
+.post .body {
+}
+
+.post .footer {
+    text-align: center;
+    font-style: italic;
+}
+
+/*****************
 FOOTER
 *****************/
 
 .container footer {
     margin-top: 50px;
     padding-top: 20px;
+    margin-bottom: 50px;
 }
 
 .copyright {

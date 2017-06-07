@@ -4,21 +4,21 @@
 
 <% if @posts?.length : %>
     <% for post in @posts : %>
-        <div class="card">
-        <header class="card-header">
-            <a class="card-header-title" href="<%- post.url %>">
-                    <%- post.title %>
-            </a>
-        </header>
-        <div class="card-content">
-            <div class="content blog-preview">
+        <div class="post">
+        <a class="title" href="blog/<%- post.id %>">
+            <header class="header">
+                <%- post.title %>
+            </header>
+        </a>
+        <div class="body">
+            <div class=".post-preview">
                 <p>
-                    <%- post.htmlContent %>
+                    <%- post.html_content %>
                 </p>
             </div>
         </div>
-        <footer class="card-footer">
-            <p class="card-footer-item"><%- post.createdAtString %></p>
+        <footer class="footer">
+            <p class="time"><%- post.createdAtString %></p>
         </footer>
         </div>
     <% end %>
