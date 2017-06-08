@@ -6,18 +6,12 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var ect = require('ect');
 var ectRenderer = ect({ watch: true, root: __dirname + '/views/layouts', ext: '.ect' });
-var mongoose = require('mongoose');
 var schedule = require('node-schedule');
 var cookieparser = require('cookie-parser');
 
 var indexRoutes = require('./routes/index.js');
 var blogRoutes = require('./routes/blog.js');
 var apiRoutes = require('./routes/api.js');
-
-var mongoDB = process.env.MONGODB_URI;
-mongoose.connect(mongoDB);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var PORT = process.env.PORT || 3000;
 
