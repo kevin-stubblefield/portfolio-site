@@ -20,7 +20,7 @@ requireAuth = function (req, res, next) {
             if (error) {
                 return res.status(403).render('403', { title: '403 Access Denied' });
             } else {
-                req.decoded = decoded;
+                req.user = decoded;
                 next();
             }
         });
@@ -39,7 +39,7 @@ router.get('/', function (req, res) {
                 posts: posts
             });
         }).catch(function (error) {
-            console.log('Unable to connect to db\n' + error);
+            console.error('Unable to connect to db', error);
             res.sendStatus(500);
         });
 });
@@ -66,14 +66,16 @@ router.get('/:id', function (req, res) {
         });
 });
 
-router.post('/', /*requireAuth,*/ function (req, res) {
-    var body = _.pick(req.body, 'title', 'markdown_content', 'fromBrowser');
+router.post('/', requireAuth, function (req, res) {
+    var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
 
-    if (body.markdown_content.trim() === '') {
+    if (body.markdownContent.trim() === '') {
         return res.status(400).send();
     }
 
-    var newPost = new Post(body);
+    var fromBrowser = body.fromBrowser;
+
+    var newPost = new Post(_.pick(body, 'title', 'markdownContent'));
 
     newPost
         .save()
@@ -82,7 +84,7 @@ router.post('/', /*requireAuth,*/ function (req, res) {
             console.error('Could not save new post', error);
         });
 
-    if (body.fromBrowser === 'true') {
+    if (fromBrowser === 'true') {
         res.redirect('/blog');
     } else {
         res.sendStatus(200);

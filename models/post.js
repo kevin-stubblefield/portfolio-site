@@ -28,14 +28,13 @@ var converter = new showdown.Converter({ noHeaderId: true });
 // });
 
 var bookshelf = require('../bookshelf.js');
-bookshelf.plugin('virtuals');
 
 var Post = bookshelf.Model.extend({
     tableName: 'posts',
 
     initialize: function() {
         this.on('saving', function(model, attrs, options) {
-            this.set('html_content', converter.makeHtml(this.get('markdown_content')));
+            this.set('htmlContent', converter.makeHtml(this.get('markdownContent')));
         });
     },
 
