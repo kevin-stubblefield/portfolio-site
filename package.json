@@ -29,7 +29,6 @@
     "jsonwebtoken": "^7.3.0",
     "knex": "^0.13.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.9.4",
     "node-schedule": "^1.2.1",
     "pg": "^6.2.3",
     "showdown": "^1.6.4",
