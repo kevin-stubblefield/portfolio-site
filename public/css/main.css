@@ -52,6 +52,53 @@ table {
 }
 
 /*****************
+TYPOGRAPHY
+*****************/
+
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    color: #777;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.4em;
+}
+
+a:visited {
+    color: #777;
+}
+
+a:hover {
+    color: #444;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.35em;
+}
+
+/*****************
 GENERAL LAYOUT
 *****************/
 
@@ -120,7 +167,6 @@ CONTENT
 
 .about .paragraph {
     margin-bottom: 2em;
-    line-height: 1.4em;
 }
 
 .profile {
@@ -149,7 +195,7 @@ CONTENT
 BLOG
 *****************/
 
-.post {
+.entry-item {
     margin: 0 auto 50px;
     width: 480px;
     border-radius: 5px;
@@ -157,25 +203,47 @@ BLOG
     box-shadow: 0 5px 6px -5px #444;
 }
 
-.post:last-of-type {
+.entry-item:last-of-type {
     margin-bottom: 0;
 }
 
-.post .header, .post .body, .post .footer {
+.entry-item .header,
+.entry-item .body,
+.entry-item .footer {
     margin: 0;
     padding: 10px;
 }
 
-.post .header {
+.entry-item .header {
     font-size: 1.25em;
 }
 
-.post .body {
+.entry-item .body {
 }
 
-.post .footer {
+.entry-item .footer {
     text-align: center;
     font-style: italic;
+}
+
+/*****************
+BLOG POST
+*****************/
+
+.post .title {
+    font-family: "Exo", "sans-serif";
+    margin-bottom: 5px;
+}
+
+.post .date {
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #bbb;
+}
+
+.post .body {
+    width: 640px;
+    margin: 0 auto;
 }
 
 /*****************
@@ -203,21 +271,51 @@ FOOTER
 }
 
 /*****************
-TYPOGRAPHY
+FORM
 *****************/
 
-a, p {
-    font-family: 'Ubuntu', sans-serif;
-    text-decoration: none;
+form {
+    margin: 0 auto;
+    width: 640px;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+.field:last-of-type {
+    margin-bottom: 0;
+}
+
+.input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    box-shadow: 0 5px 6px -6px #444;
+    font-size: 1em;
     color: #777;
 }
 
-a:visited {
-    color: #777;
+.textarea {
+    width: 100%;
 }
 
-a:hover {
-    color: #444;
+.button {
+    padding: 10px 25px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    background: white;
+    color: #777;
+    font-family: "Ubuntu", "sans-serif";
+    font-size: 1em;
+}
+
+.button:hover {
+    background: #4D642D;
+    color: #fff;
+    cursor: pointer;
 }
 
 /*****************

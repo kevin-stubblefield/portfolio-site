@@ -1,37 +1,22 @@
 <% extend '../layouts/layout' %>
 
 <div class="container">
-<section class="section">
-<div class="columns">
-<div class="column is-half is-offset-one-quarter">
-<div class="box">
 <form id="post-form" method="post" action="/blog">
     <div class="field">
-    <p class="control">
         <input class="input" type="text" name="title" placeholder="Title" >
-    </p>
     </div>
 
     <div class="field">
-    <p class="control">
         <textarea id="post" class="textarea" name="markdownContent" placeholder="Write your post here..." ></textarea>
-    </p>
     </div>
 
     <div class="field">
-        <p class="control">
-            <input class="button" type="submit" name="submit" value="Submit" >
-        </p>
+        <input class="button" type="submit" name="submit" value="Submit" >
     </div>
 
     <input type="hidden" name="fromBrowser" value="true">
     <input type="hidden" name="token" value="<%- @token %>">
 </form>
-</div>
-</div>
-</div>
-</section>
-</div>
 
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script type="text/javascript" src="/js/blogPost.js"></script>
