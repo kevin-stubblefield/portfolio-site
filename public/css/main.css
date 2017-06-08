@@ -189,6 +189,7 @@ CONTENT
 
 .message.warning p {
     color: #7f0000;
+    margin-bottom: 0;
 }
 
 /*****************
