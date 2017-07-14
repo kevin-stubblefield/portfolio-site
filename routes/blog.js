@@ -18,14 +18,22 @@ requireAuth = function (req, res, next) {
     if (token) {
         jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
             if (error) {
-                return res.status(403).render('403', { title: '403 Access Denied' });
+                return res.status(403).render('error', {
+                    title: '403',
+                    errorCode: 403,
+                    errorMessage: 'Access Denied'
+                });
             } else {
                 req.user = decoded;
                 next();
             }
         });
     } else {
-        return res.status(403).render('403', { title: '403 Access Denied' });
+        return res.status(403).render('error', {
+            title: '403',
+            errorCode: 403,
+            errorMessage: 'Access Denied'
+        });
     }
 };
 
@@ -63,7 +71,11 @@ router.get('/:id', function (req, res) {
             });
         }).catch(function (error) {
             console.error('Unable to fetch post', error);
-            res.render('404');
+            res.render('error', {
+                title: '404',
+                errorCode: 404,
+                errorMessage: 'Post not found'
+            });
         });
 });
 

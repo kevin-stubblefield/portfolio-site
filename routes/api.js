@@ -19,7 +19,11 @@ router.post('/authenticate', function (req, res) {
         .then(function (user) {
             user = user.toJSON();
             if (!user || !bcrypt.compareSync(body.password, user.password)) {
-                return res.status(400).render('400', { title: '400 Bad Request' });
+                return res.status(400).render('400', {
+                    title: '400',
+                    errorCode: 400,
+                    errorMessage: 'Bad Request'
+                });
             }
 
             var token = jwt.sign(user, process.env.TOKEN_SECRET, {

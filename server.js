@@ -29,7 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all 404
 app.get('/*', function (req, res) {
-    res.render('404');
+    res.render('error', {
+        title: '404',
+        errorCode: 404,
+        errorMessage: 'Page not found'
+    });
 });
 
 schedule.scheduleJob('0 0 17 * * 0', function () {
