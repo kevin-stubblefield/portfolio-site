@@ -63,6 +63,7 @@ router.get('/:id', function (req, res) {
             });
         }).catch(function (error) {
             console.error('Unable to fetch post', error);
+            res.render('404');
         });
 });
 

@@ -24,7 +24,13 @@ app.use(cookieparser());
 app.use('/', indexRoutes);
 app.use('/blog', blogRoutes);
 app.use('/api', apiRoutes);
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Catch-all 404
+app.get('/*', function (req, res) {
+    res.render('404');
+});
 
 schedule.scheduleJob('0 0 17 * * 0', function () {
     process.env.TOKEN_SECRET = require('crypto').randomBytes(48).toString('hex');
