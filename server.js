@@ -42,7 +42,7 @@ app.get('/*', function (req, res) {
     });
 });
 
-schedule.scheduleJob('0 0 17 * * 0', function () {
+schedule.scheduleJob('0 0 0 * * *', function () {
     process.env.TOKEN_SECRET = require('crypto').randomBytes(48).toString('hex');
 });
 
