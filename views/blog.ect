@@ -18,7 +18,7 @@
             </div>
         </div>
         <footer class="footer">
-            <p class="time"><%- post.createdAtString %></p>
+            <p class="date"><%- post.createdAt.toLocaleDateString() %></p>
         </footer>
         </div>
     <% end %>

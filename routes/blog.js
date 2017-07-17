@@ -39,6 +39,8 @@ requireAuth = function (req, res, next) {
 
 router.get('/', function (req, res) {
     Post
+        .forge()
+        .orderBy('created_at', 'DESC')
         .fetchAll()
         .then(function (posts) {
             posts = posts.toJSON();

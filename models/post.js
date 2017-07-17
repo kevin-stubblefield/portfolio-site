@@ -37,12 +37,6 @@ var Post = bookshelf.Model.extend({
             this.set('htmlContent', converter.makeHtml(this.get('markdownContent')));
         });
     },
-
-    virtuals: {
-        createdAtString: function() {
-            return moment(this.get('created_at')).utcOffset('-0600').format('dddd, MMM Do, YYYY');
-        },
-    },
 });
 
 module.exports = Post;

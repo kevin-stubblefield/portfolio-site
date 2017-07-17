@@ -1,7 +1,7 @@
 {
   "name": "kevin-stubblefield-portfolio-site",
   "version": "1.0.0",
-  "description": "",
+  "description": "A portfolio site for Kevin Stubblefield",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

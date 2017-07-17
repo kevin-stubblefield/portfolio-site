@@ -3,7 +3,7 @@
 <div class="container">
     <div class="post">
         <h1 class="title"><%- @post.title %></h1>
-        <p class="date"><%- @post.createdAtString %></p>
+        <p class="date"><%- @post.createdAt.toLocaleDateString() %></p>
 
         <div class="body">
             <%- @post.htmlContent %>
