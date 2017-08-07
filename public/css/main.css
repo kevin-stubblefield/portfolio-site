@@ -247,6 +247,26 @@ BLOG POST
     margin: 0 auto;
 }
 
+.comments {
+    padding-top: 25px;
+    margin-top: 15px;
+    border-top: 1px solid #bbb;
+}
+
+.comment {
+    margin: 0 auto 15px;
+    width: 640px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    box-shadow: 0 5px 6px -5px #444;
+    padding: 10px;
+}
+
+.comment .body {
+    width: 640px;
+    margin: 0 auto;
+}
+
 /*****************
 FOOTER
 *****************/
@@ -284,10 +304,6 @@ form {
     margin-bottom: 15px;
 }
 
-.field:last-of-type {
-    margin-bottom: 0;
-}
-
 .input {
     box-sizing: border-box;
     width: 100%;
@@ -301,6 +317,8 @@ form {
 
 .textarea {
     width: 100%;
+    font-family: 'Ubuntu', 'sans-serif';
+    font-size: 1em;
 }
 
 .button {

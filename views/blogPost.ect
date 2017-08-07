@@ -9,4 +9,47 @@
             <%- @post.htmlContent %>
         </div>
     </div>
+
+    <div class="comments">
+        <form id="comment-form" method="post" action="/blog/<%- @post.id %>">
+            <div class="field">
+                <input class="input" type="text" name="name" placeholder="Name (Optional)">
+            </div>
+
+            <div class="field">
+                <textarea class="input textarea" name="content" placeholder="Leave a comment!"></textarea>
+            </div>
+
+            <div class="field">
+                <input class="button" type="submit" name="submit" value="Submit" >
+            </div>
+
+            <input type="hidden" name="postId" value="<%- @post.id %>">
+        </form>
+
+        <% if @post.messages?.length : %>
+            <% for message in @post.messages : %>
+                <div class="comment">
+                    <p class="header">
+                        <% if message.name?.length : %>
+                            <%- message.name %>
+                        <% else : %>
+                            Anonymous
+                        <% end %> wrote on 
+                        <%- message.createdAt.toLocaleDateString() %>...
+                    </p>
+
+                    <p class="body">
+                        <%- message.content %>
+                    </p>
+                </div>
+            <% end %>
+        <% else : %>
+        <div class="message warning">
+            <p>
+                No comments at this time <%- @messages %>
+            </p>
+        </div>
+        <% end %>
+    </div>
 </div>

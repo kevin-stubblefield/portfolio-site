@@ -28,9 +28,13 @@ var converter = new showdown.Converter({ noHeaderId: true });
 // });
 
 var bookshelf = require('../bookshelf.js');
+var Message = require('./message.js');
 
 var Post = bookshelf.Model.extend({
     tableName: 'posts',
+    messages: function () {
+        return this.hasMany(Message);
+    },
 
     initialize: function() {
         this.on('saving', function(model, attrs, options) {

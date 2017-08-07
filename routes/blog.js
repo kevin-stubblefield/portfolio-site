@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/post.js');
+var Message = require('../models/message.js');
 var _ = require('underscore');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
@@ -63,14 +64,18 @@ router.get('/createPost', requireAuth, function (req, res) {
 router.get('/:id', function (req, res) {
     var id = req.params.id;
 
-    new Post({ 'id': id })
-        .fetch()
+    Post
+        .forge({ 'id': id })
+        .fetch({ withRelated: ['messages'] })
         .then(function (post) {
             post = post.toJSON();
+            post.messages.reverse();
+                    
             res.render('blogPost', {
                 title: post.title,
                 post: post
             });
+
         }).catch(function (error) {
             console.error('Unable to fetch post', error);
             res.render('error', {
@@ -104,6 +109,22 @@ router.post('/', requireAuth, function (req, res) {
     } else {
         res.sendStatus(200);
     }
+});
+
+router.post('/:id', function (req, res) {
+    var body = _.pick(req.body, 'name', 'content', 'postId');
+
+    if (body.content.trim() === '') {
+        return res.redirect('/blog/' + body.postId);
+    }
+
+    var newMessage = new Message(body);
+
+    console.log(newMessage);
+
+    newMessage.save();
+
+    res.redirect('/blog/' + body.postId);
 });
 
 module.exports = router;
