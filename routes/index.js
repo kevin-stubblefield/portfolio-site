@@ -15,7 +15,7 @@ router.get('/about', function (req, res) {
 });
 
 router.get('/hot-cold', function (req, res) {
-    res.sendFile(path.resolve('public/files/app-debug.apk'));
+    res.sendFile(path.resolve('public/files/app-release.apk'));
 });
 
 module.exports = router;
