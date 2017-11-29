@@ -1,0 +1,15 @@
+extends ./layouts/layout
+
+block content
+    div.container
+        form#login-form(method="post" action="/api/authenticate")
+            div.field
+                input.input(type="text" name="username" placeholder="Username")
+
+            div.field
+                input.input(type="password" name="password" placeholder="Password")
+
+            div.field
+                input.button(type="submit" name="submit" value="Login")
+
+            input(type="hidden" name="fromBrowser" value="true")

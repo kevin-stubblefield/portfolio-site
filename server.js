@@ -10,16 +10,7 @@ var utils = require('./utils.js');
 
 var PORT = process.env.PORT || 3000;
 
-// View Engine config
-var ect = require('ect');
-var ectRenderer = ect({
-    watch: true,
-    root: __dirname + '/views/layouts',
-    ext: '.ect'
-});
-
-app.set('view engine', 'ect');
-app.engine('ect', ectRenderer.render);
+app.set('view engine', 'pug');
 
 // Route and middleware config
 var indexRoutes = require('./routes/index.js');

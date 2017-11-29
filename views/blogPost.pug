@@ -1,0 +1,33 @@
+extends ./layouts/layout
+
+block content
+    div.container
+        div.post
+            h1.title= post.title
+            p.date= post.createdAt.toLocaleDateString()
+
+            div.body!= post.htmlContent
+
+        div.comments
+            form#comment-form(method="post" action="/blog/" + post.id)
+                div.field
+                    input.input(type="text" name="name" placeholder="Name (Optional)")
+
+                div.field
+                    textarea.input.textarea(name="content" placeholder="Leave a comment!")
+
+                div.field
+                    input.button(type="submit" name="submit" value="Submit")
+
+                input(type="hidden" name="postId" value=post.id)
+
+            if post.messages.length
+                each message in post.messages
+                    div.comment
+                        - var commentHeader = message.name ? message.name : 'Anonymous';
+                        p.header= commentHeader + ' wrote on ' + message.createdAt.toLocaleDateString() + '...'
+
+                        p.body= message.content
+            else
+                div.message.warning
+                    p No comments at this time

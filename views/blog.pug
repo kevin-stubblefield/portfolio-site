@@ -1,0 +1,17 @@
+extends ./layouts/layout
+
+block content
+    div.container
+        if posts.length
+            each post in posts
+                div.entry-item
+                    a.title(href="/blog/" + post.id)
+                        header.header= post.title
+                    div.body
+                        div.post-preview
+                            p!= post.htmlContent.substr(0, 140)
+                    footer.footer
+                        p.date= post.createdAt.toLocaleDateString()
+        else
+            div.message.warning
+                p No blog posts at this time
