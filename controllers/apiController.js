@@ -2,49 +2,42 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 var User = require('../models/user.js');
-var _ = require('underscore');
+var _ = require('lodash');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var db = require('../db');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
     extended: true
 }));
 
-router.post('/authenticate', function (req, res) {
+router.post('/authenticate', async function (req, res) {
     var body = _.pick(req.body, 'username', 'password', 'fromBrowser');
 
-    new User({ 'username': body.username })
-        .fetch()
-        .then(function (user) {
-            user = user.toJSON();
-            if (!user || !bcrypt.compareSync(body.password, user.password)) {
-                return res.status(400).render('error', {
-                    title: '400',
-                    errorCode: 400,
-                    errorMessage: 'Bad Request'
-                });
-            }
-
-            var token = jwt.sign(user, process.env.TOKEN_SECRET, {
-                expiresIn: "1d"
-            });
-
-            if (body.fromBrowser === "true") {
-                res.cookie('token', token, {
-                    expire: new Date() + 86400000
-                }).redirect('/blog/createPost');
-                //res.redirect('/blog/createPost?token=' + token);
-            } else {
-                res.json({
-                    success: true,
-                    token: token
-                });
-            }
-        })
-        .catch(function (error) {
-            console.error('Unable to find user', error);
+    var user = await db.getUserByUsername(body.username);
+    if (!user || !bcrypt.compareSync(body.password, user.password)) {
+        return res.status(400).render('error', {
+            title: '400',
+            errorCode: '400',
+            errorMessage: 'Bad Request'
         });
+    }
+
+    var token = jwt.sign(user, process.env.TOKEN_SECRET, {
+        expiresIn: "1d"
+    });
+
+    if (body.fromBrowser === "true") {
+        res.cookie('token', token, {
+            expire: new Date() + 86400000
+        }).redirect('/blog/createPost');
+    } else {
+        res.json({
+            success: true,
+            token: token
+        });
+    }
 });
 
 router.post('/signup', function (req, res) {

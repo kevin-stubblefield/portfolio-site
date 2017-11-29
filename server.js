@@ -8,14 +8,16 @@ var schedule = require('node-schedule');
 var cookieparser = require('cookie-parser');
 var utils = require('./utils.js');
 
+var dbConfig = require('./dbConfig');
+
 var PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'pug');
 
 // Route and middleware config
-var indexRoutes = require('./routes/index.js');
-var blogRoutes = require('./routes/blog.js');
-var apiRoutes = require('./routes/api.js');
+var indexRoutes = require('./controllers/indexController');
+var blogRoutes = require('./controllers/blogController');
+var apiRoutes = require('./controllers/apiController');
 
 app.use(utils.httpsRedirect);
 app.use(cookieparser());

@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../models/post.js');
 var Message = require('../models/message.js');
-var _ = require('underscore');
+var _ = require('lodash');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var db = require('../db');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -38,21 +39,12 @@ requireAuth = function (req, res, next) {
     }
 };
 
-router.get('/', function (req, res) {
-    Post
-        .forge()
-        .orderBy('created_at', 'DESC')
-        .fetchAll()
-        .then(function (posts) {
-            posts = posts.toJSON();
-            res.render('blog', {
-                title: 'My Blog',
-                posts: posts
-            });
-        }).catch(function (error) {
-            console.error('Unable to connect to db', error);
-            res.sendStatus(500);
-        });
+router.get('/', async function (req, res) {
+    var posts = await db.getPosts();
+    res.render('blog', {
+        title: 'My Blog',
+        posts: posts
+    });
 });
 
 router.get('/createPost', requireAuth, function (req, res) {
@@ -61,32 +53,25 @@ router.get('/createPost', requireAuth, function (req, res) {
     });
 });
 
-router.get('/:id', function (req, res) {
+router.get('/:id', async function (req, res) {
     var id = req.params.id;
+    var post = await db.getPostById(id);
 
-    Post
-        .forge({ 'id': id })
-        .fetch({ withRelated: ['messages'] })
-        .then(function (post) {
-            post = post.toJSON();
-            post.messages.reverse();
-                    
-            res.render('blogPost', {
-                title: post.title,
-                post: post
-            });
-
-        }).catch(function (error) {
-            console.error('Unable to fetch post', error);
-            res.render('error', {
-                title: '404',
-                errorCode: 404,
-                errorMessage: 'Post not found'
-            });
+    if (!post) {
+        return res.status(404).render('error', {
+            title: '404',
+            errorCode: 404,
+            errorMessage: 'Post not found'
         });
+    }
+
+    res.render('blogPost', {
+        title: post.title,
+        post: post
+    });
 });
 
-router.post('/', requireAuth, function (req, res) {
+router.post('/', requireAuth, async function (req, res) {
     var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
 
     if (body.markdownContent.trim() === '') {
@@ -95,14 +80,9 @@ router.post('/', requireAuth, function (req, res) {
 
     var fromBrowser = body.fromBrowser;
 
-    var newPost = new Post(_.pick(body, 'title', 'markdownContent'));
+    var newPost = _.pick(body, 'title', 'markdownContent');
 
-    newPost
-        .save()
-        .then(function (model) {
-        }).catch(function (error) {
-            console.error('Could not save new post', error);
-        });
+    await db.createPost(newPost);
 
     if (fromBrowser === 'true') {
         res.redirect('/blog');
@@ -111,18 +91,14 @@ router.post('/', requireAuth, function (req, res) {
     }
 });
 
-router.post('/:id', function (req, res) {
+router.post('/:id', async function (req, res) {
     var body = _.pick(req.body, 'name', 'content', 'postId');
 
     if (body.content.trim() === '') {
         return res.redirect('/blog/' + body.postId);
     }
 
-    var newMessage = new Message(body);
-
-    console.log(newMessage);
-
-    newMessage.save();
+    await db.createMessage(body);
 
     res.redirect('/blog/' + body.postId);
 });

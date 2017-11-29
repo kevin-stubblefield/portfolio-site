@@ -16,18 +16,50 @@ var bcrypt = require('bcrypt');
 //         this.hashedPassword = hashedPassword;
 //     });
 
-var bookshelf = require('../bookshelf.js');
+// var bookshelf = require('../bookshelf.js');
 
-var User = bookshelf.Model.extend({
-    tableName: 'users',
+// var User = bookshelf.Model.extend({
+//     tableName: 'users',
 
-    initialize: function () {
-        this.on('saving', function (model, attrs, options) {
-            var hashedPassword = bcrypt.hashSync(model.attributes.password, 12);
-            this.set('password', hashedPassword);
+//     initialize: function () {
+//         this.on('saving', function (model, attrs, options) {
+//             var hashedPassword = bcrypt.hashSync(model.attributes.password, 12);
+//             this.set('password', hashedPassword);
+//         });
+//     },
+
+// });
+
+var Model = require('../dbConfig').Model;
+var _ = require('lodash');
+
+const snakeCase = _.memoize(_.snakeCase);
+const camelCase = _.memoize(_.camelCase);
+
+class User extends Model {
+    static get tableName() {
+        return 'users';
+    }
+
+    $beforeInsert() {
+        this.password = bcrypt.hashSync(this.password, 12);
+    }
+    
+    $formatDatabaseJson(json) {
+        json = super.$formatDatabaseJson(json);
+
+        return _.mapKeys(json, (value, key) => {
+            return snakeCase(key);
         });
-    },
+    }
 
-});
+    $parseDatabaseJson(json) {
+        json = _.mapKeys(json, (value, key) => {
+            return camelCase(key);
+        });
+
+        return super.$parseDatabaseJson(json);
+    }
+}
 
 module.exports = User;
