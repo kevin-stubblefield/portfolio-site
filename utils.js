@@ -14,7 +14,7 @@ module.exports = {
         }
     },
 
-    requireAuth: function (req, res, next) {
+    requireAuth: function(req, res, next) {
         var body = _.pick(req.body, 'token');
     
         var token = body.token || req.cookies.token;
@@ -39,5 +39,15 @@ module.exports = {
                 errorMessage: 'Access Denied'
             });
         }
+    },
+
+    getUser: function(token) {
+        var user;
+
+        if (token) {
+            user = jwt.verify(token, process.env.TOKEN_SECRET)
+        }
+
+        return user;
     }
 }
