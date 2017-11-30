@@ -35,4 +35,12 @@ router.post('/', utils.requireAuth, async function(req, res) {
     await db.createProject(body);
 });
 
+router.post('/:id', utils.requireAuth, async function(req, res) {
+    var body = _.pick(req.body, 'description');
+
+    body.projectId = req.params.id;
+
+    await db.createTask(body);
+});
+
 module.exports = router;
