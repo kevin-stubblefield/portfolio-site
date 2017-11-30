@@ -1,6 +1,8 @@
 var User = require('./models/user');
 var Post = require('./models/post');
 var Message = require('./models/message');
+var Project = require('./models/todo/project');
+var Task = require('./models/todo/task');
 
 module.exports = {
     createUser: function(user) {
@@ -33,5 +35,17 @@ module.exports = {
 
     getMessagesForPost: function(postId) {
         return Message.query().where('post_id', postId);
+    },
+
+    createProject: function(project) {
+        return Project.query().insert(project);
+    },
+
+    getProjects: function() {
+        return Project.query().eager('tasks');
+    },
+
+    createTask: function(task) {
+        return Task.query().insert(task);
     }
 }

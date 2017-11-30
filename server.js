@@ -15,15 +15,17 @@ var PORT = process.env.PORT || 3000;
 app.set('view engine', 'pug');
 
 // Route and middleware config
-var indexRoutes = require('./controllers/indexController');
-var blogRoutes = require('./controllers/blogController');
-var apiRoutes = require('./controllers/apiController');
+var indexController = require('./controllers/indexController');
+var blogController = require('./controllers/blogController');
+var todoController = require('./controllers/todoController');
+var apiController = require('./controllers/apiController');
 
 app.use(utils.httpsRedirect);
 app.use(cookieparser());
-app.use('/', indexRoutes);
-app.use('/blog', blogRoutes);
-app.use('/api', apiRoutes);
+app.use('/', indexController);
+app.use('/blog', blogController);
+app.use('/todo', todoController);
+app.use('/api', apiController);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all 404

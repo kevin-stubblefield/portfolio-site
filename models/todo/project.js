@@ -1,32 +1,22 @@
-// var bookshelf = require('../bookshelf.js');
-// var Post = require('./post.js');
-
-// var Message = bookshelf.Model.extend({
-//     tableName: 'messages',
-//     post: function () {
-//         return this.belongsTo(Post);
-//     }
-// });
-
-var Model = require('../dbConfig').Model;
+var Model = require('../../dbConfig').Model;
 var _ = require('lodash');
 
 const snakeCase = _.memoize(_.snakeCase);
 const camelCase = _.memoize(_.camelCase);
 
-class Message extends Model {
+class Project extends Model {
     static get tableName() {
-        return 'messages';
+        return 'projects';
     }
 
     static get relationMappings() {
         return {
-            post: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: __dirname + '/post',
+            tasks: {
+                relation: Model.HasManyRelation,
+                modelClass: __dirname__ + '/task',
                 join: {
-                    from: 'messages.post_id',
-                    to: 'posts.id'
+                    from: 'projects.id',
+                    to: 'tasks.project_id'
                 }
             }
         }
@@ -49,4 +39,4 @@ class Message extends Model {
     }
 }
 
-module.exports = Message;
+module.exports = Project;
