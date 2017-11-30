@@ -5,38 +5,12 @@ var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var db = require('../db');
+var utils = require('../utils');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
     extended: true
 }));
-
-requireAuth = function (req, res, next) {
-    var body = _.pick(req.body, 'token');
-
-    var token = body.token || req.query.token || req.cookies.token;
-
-    if (token) {
-        jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
-            if (error) {
-                return res.status(403).render('error', {
-                    title: '403',
-                    errorCode: 403,
-                    errorMessage: 'Access Denied'
-                });
-            } else {
-                req.user = decoded;
-                next();
-            }
-        });
-    } else {
-        return res.status(403).render('error', {
-            title: '403',
-            errorCode: 403,
-            errorMessage: 'Access Denied'
-        });
-    }
-};
 
 router.get('/', async function (req, res) {
     var posts = await db.getPosts();
@@ -53,7 +27,7 @@ router.get('/', async function (req, res) {
     });
 });
 
-router.get('/createPost', requireAuth, function (req, res) {
+router.get('/createPost', utils.requireAuth, function (req, res) {
     res.render('createPost', {
         title: 'Write New Post'
     });
@@ -82,7 +56,7 @@ router.get('/:id', async function (req, res) {
     });
 });
 
-router.post('/', requireAuth, async function (req, res) {
+router.post('/', utils.requireAuth, async function (req, res) {
     var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
 
     if (body.markdownContent.trim() === '') {

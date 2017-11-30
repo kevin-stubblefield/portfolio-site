@@ -1,4 +1,19 @@
 extends ./layouts/layout
 
 block content
-    div.container Hello World
+    div.container
+        if projects.length
+            each project in projects
+                div.entry-item
+                    a.title(href="/todo/" + project.id)
+                        header.header= project.title
+                    div.body
+                        div.post-preview
+                            p= project.description
+                        each task in project.tasks
+                            p= task.description
+        else
+            div.message.warning
+                p No projects at this time
+
+    script var data = !{JSON.stringify(projects).replace(/<\//g, '<\\/')}

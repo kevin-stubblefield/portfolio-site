@@ -13,7 +13,7 @@ class Task extends Model {
         return {
             project: {
                 relation: Model.BelongsToOneRelation,
-                modelClass: __dirname__ + '/project',
+                modelClass: __dirname + '/project',
                 join: {
                     from: 'tasks.project_id',
                     to: 'projects.id'
