@@ -4,7 +4,7 @@ block content
     div.container
         div.post
             h1.title= post.title
-            p.date= post.createdAt.toLocaleDateString()
+            p.date= post.formattedDate
 
             div.body!= post.htmlContent
 
@@ -25,7 +25,7 @@ block content
                 each message in post.messages
                     div.comment
                         - var commentHeader = message.name ? message.name : 'Anonymous';
-                        p.header= commentHeader + ' wrote on ' + message.createdAt.toLocaleDateString() + '...'
+                        p.header= commentHeader + ' wrote on ' + message.formattedDate + '...'
 
                         p.body= message.content
             else

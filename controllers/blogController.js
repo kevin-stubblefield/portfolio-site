@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('../models/post.js');
-var Message = require('../models/message.js');
 var _ = require('lodash');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var moment = require('moment');
 var db = require('../db');
 
 router.use(bodyParser.json());
@@ -41,6 +40,13 @@ requireAuth = function (req, res, next) {
 
 router.get('/', async function (req, res) {
     var posts = await db.getPosts();
+
+    posts.forEach((post) => {
+        moment.locale();
+        var formattedDate = moment(post.createdAt).format('MMM Do YYYY')
+        post.formattedDate = formattedDate;
+    });
+
     res.render('blog', {
         title: 'My Blog',
         posts: posts
@@ -56,6 +62,11 @@ router.get('/createPost', requireAuth, function (req, res) {
 router.get('/:id', async function (req, res) {
     var id = req.params.id;
     var post = await db.getPostById(id);
+
+    post.messages.forEach((message) => {
+        var formattedDate = moment(message.createdAt).format('MMM Do YYYY');
+        message.formattedDate = formattedDate;
+    });
 
     if (!post) {
         return res.status(404).render('error', {

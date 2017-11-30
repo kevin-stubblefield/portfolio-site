@@ -11,7 +11,7 @@ block content
                         div.post-preview
                             p!= post.htmlContent.substr(0, 140)
                     footer.footer
-                        p.date= post.createdAt.toLocaleDateString()
+                        p.date= post.formattedDate
         else
             div.message.warning
                 p No blog posts at this time
