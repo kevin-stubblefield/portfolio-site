@@ -72,6 +72,10 @@ function onEditProjectClick() {
     
 }
 
+function onProjectDescriptionClick(sender) {
+    enterEditProjectDescriptionMode(sender);
+}
+
 function onDeleteProjectClick() {
     axios.delete('/todo/' + selectedProject.id);
     var toRemove;
@@ -125,6 +129,7 @@ function onDeleteClick(parent) {
 
 function update() {
     projectDescription.innerText = selectedProject.description;
+    projectDescription.setAttribute('data-project-id', selectedProject.id);
 
     var addButton = document.getElementById('add-task-button');
     if (addButton) {
@@ -249,6 +254,36 @@ function enterEditTaskMode(parent) {
     
     parent.firstChild.innerHTML = '';
     parent.firstChild.appendChild(input);
+    input.focus();
+}
+
+function enterEditProjectDescriptionMode(parent) {
+    var oldText = parent.innerText;
+    var input = document.createElement('input');
+    input.className = 'input';
+    input.setAttribute('placeholder', oldText);
+    input.onkeypress = function(event) {
+        if (!event) event = window.event;
+        var keyCode = event.keyCode || event.which;
+        if (keyCode === 13) {
+            if (this.value === '') {
+                parent.innerText = oldText;
+            } else {
+                parent.innerText = this.value;
+                axios.patch(
+                    '/todo/' + parent.getAttribute('data-project-id'),
+                    { description: this.value }
+                );
+            }
+            return false;
+        } else if (keyCode === 27) {
+            parent.innerText = oldText;
+            return false;
+        }
+    }
+    
+    parent.innerHTML = '';
+    parent.appendChild(input);
     input.focus();
 }
 

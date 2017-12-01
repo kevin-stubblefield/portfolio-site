@@ -336,6 +336,7 @@ TODO DASHBOARD
 }
 
 #project-description {
+    cursor: pointer;
 }
 
 #project-tasks {

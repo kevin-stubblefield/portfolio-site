@@ -37,7 +37,7 @@ router.post('/', utils.requireAuth, async function(req, res) {
 });
 
 router.patch('/:id', utils.requireAuth, async function(req, res) {
-    var body = _.pick(req.body, 'title');
+    var body = _.pick(req.body, 'title', 'description');
 
     var projectId = req.params.id;
 
