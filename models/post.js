@@ -69,6 +69,7 @@ class Post extends Model {
 
     $beforeInsert() {
         this.htmlContent = converter.makeHtml(this.markdownContent);
+        this.url = this.title.replace(/\s+/g, '-').toLowerCase();
     }
     
     $formatDatabaseJson(json) {

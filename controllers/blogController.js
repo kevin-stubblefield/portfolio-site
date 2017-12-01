@@ -33,9 +33,9 @@ router.get('/createPost', utils.requireAuth, function (req, res) {
     });
 });
 
-router.get('/:id', async function (req, res) {
-    var id = req.params.id;
-    var post = await db.getPostById(id);
+router.get('/:url', async function (req, res) {
+    var url = req.params.url;
+    var post = await db.getPostByUrl(url);
 
     post.messages.forEach((message) => {
         var formattedDate = moment(message.createdAt).format('MMM Do YYYY');

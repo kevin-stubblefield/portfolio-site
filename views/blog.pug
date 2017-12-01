@@ -5,7 +5,7 @@ block content
         if posts.length
             each post in posts
                 div.entry-item
-                    a.title(href="/blog/" + post.id)
+                    a.title(href="/blog/" + post.url)
                         header.header= post.title
                     div.body
                         div.post-preview

@@ -29,6 +29,10 @@ module.exports = {
         return Post.query().findOne('id', postId).eager('messages');
     },
 
+    getPostByUrl: function(url) {
+        return Post.query().findOne('url', url).eager('messages');
+    },
+
     createMessage: function(message) {
         return Message.query().insert(message);
     },
