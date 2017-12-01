@@ -31,7 +31,41 @@ function onProjectClick(sender) {
 }
 
 function onNewProjectClick() {
+    var li = makeProjectListItem();
+    li.classList.add('active');
 
+    li.firstChild.onkeypress = function(event) {
+        if (!event) event = window.event;
+        var keyCode = event.keyCode || event.which;
+        if (keyCode === 13) {
+            if (this.value === '') {
+                li.innerText = defaultName;
+            } else {
+                li.innerText = this.value;
+                createNewProject(this.value, li);
+            }
+            return false;
+        } else if (keyCode === 27) {
+            li.innerText = defaultName;
+            return false;
+        }
+    }
+
+    li.firstChild.focus();
+}
+
+function createNewProject(title, li) {
+    axios.post('/todo', {
+        title: title,
+        description: 'New Project Description',
+        category: 'development'
+    }).then(function(response) {
+        li.project = response.data;
+        projectList.insertBefore(li, null);
+        selectedProject = li.project;
+        selectedProject.tasks = [];
+        update();
+    });
 }
 
 function onEditProjectClick() {
@@ -45,7 +79,7 @@ function onDeleteProjectClick() {
     for (var i = 0; i < listItems.length; i++) {
         if (listItems[i].project.id === selectedProject.id) {
             toRemove = listItems[i];
-            nextProject = listItems[i + 1] || {};
+            nextProject = listItems[i + 1] || listItems[i - 1] || {};
             break;
         }
     }
@@ -63,7 +97,7 @@ function onAddTaskClick(sender) {
         '/todo/' + sender.getAttribute('data-project-id'),
         { description: newTaskDescription }
     ).then(function(response) {
-        newListItem = makeListItem({
+        newListItem = makeTaskListItem({
             description: newTaskDescription,
             complete: false,
             id: response.data.id
@@ -112,7 +146,7 @@ function update() {
     }
 
     for (var i = 0; i < selectedProject.tasks.length; i++) {
-        makeListItem(selectedProject.tasks[i]);
+        makeTaskListItem(selectedProject.tasks[i]);
     }
 }
 
@@ -139,7 +173,7 @@ function generateIcons() {
     return icons;
 }
 
-function makeListItem(body) {
+function makeTaskListItem(body) {
     var li = document.createElement('li');
     var text = document.createTextNode(
         body.description
@@ -161,6 +195,26 @@ function makeListItem(body) {
     }
     li.setAttribute('data-task-id', body.id);
     projectTasks.appendChild(li);
+
+    return li;
+}
+
+function makeProjectListItem() {
+    var li = document.createElement('li');
+    var input = document.createElement('input');
+    input.className = 'input';
+
+    var defaultName = 'New Project';
+    var parent = li;
+
+    input.setAttribute('placeholder', defaultName);
+    
+    
+    li.appendChild(input);
+    projectList.appendChild(li);
+    for (var i = 0; i < listItems.length; i++) {
+        listItems[i].classList.remove('active');
+    }
 
     return li;
 }

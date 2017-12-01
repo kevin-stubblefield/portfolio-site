@@ -45,6 +45,10 @@ module.exports = {
         return Project.query().eager('tasks');
     },
     
+    patchProject: function(projectId, project) {
+        return Project.query().patch(project).where('id', projectId);
+    },
+
     deleteProject: function(projectId) {
         return Project.query().deleteById(projectId);
     },

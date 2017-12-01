@@ -32,7 +32,16 @@ router.get('/', async function(req, res) {
 router.post('/', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'title', 'description', 'category');
 
-    await db.createProject(body);
+    var project = await db.createProject(body);
+    res.status(200).json(project);
+});
+
+router.patch('/:id', utils.requireAuth, async function(req, res) {
+    var body = _.pick(req.body, 'title');
+
+    var projectId = req.params.id;
+
+    await db.patchProject(projectId, body);
 });
 
 router.delete('/:id', utils.requireAuth, async function(req, res) {

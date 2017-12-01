@@ -286,7 +286,6 @@ TODO DASHBOARD
 
 .projects li {
     padding: 10px;
-    height: 40px;
     line-height: 40px;
     font-size: 18px;
     border: 1px solid #bbb;
@@ -356,10 +355,6 @@ TODO DASHBOARD
     color: #777;
 }
 
-.project-task.complete {
-    background: rgb(208, 233, 173);
-}
-
 .project-task .fa {
     margin-left: 15px;
     cursor: pointer;
@@ -368,6 +363,10 @@ TODO DASHBOARD
 .project-task:nth-of-type(even) {
     background: #fff;
     color: #777;
+}
+
+.project-task.complete {
+    background: rgb(208, 233, 173);
 }
 
 .icons.hidden {
