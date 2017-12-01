@@ -1,6 +1,7 @@
 document.querySelector('.projects li:first-of-type').className ='active';
 
-var listItems = document.getElementsByTagName('li');
+var projectList = document.getElementsByClassName('projects')[0];
+var listItems = projectList.children;
 
 var projectDescription = document.getElementById('project-description');
 var projectTasks = document.getElementById('project-tasks');
@@ -29,8 +30,29 @@ function onProjectClick(sender) {
     update();
 }
 
-function onNewProjectClick(sender) {
+function onNewProjectClick() {
 
+}
+
+function onEditProjectClick() {
+    
+}
+
+function onDeleteProjectClick() {
+    axios.delete('/todo/' + selectedProject.id);
+    var toRemove;
+    var nextProject;
+    for (var i = 0; i < listItems.length; i++) {
+        if (listItems[i].project.id === selectedProject.id) {
+            toRemove = listItems[i];
+            nextProject = listItems[i + 1] || {};
+            break;
+        }
+    }
+    projectList.removeChild(toRemove);
+    nextProject.classList.add('active');
+    selectedProject = nextProject.project;
+    update();
 }
 
 function onAddTaskClick(sender) {

@@ -44,6 +44,10 @@ module.exports = {
     getProjects: function() {
         return Project.query().eager('tasks');
     },
+    
+    deleteProject: function(projectId) {
+        return Project.query().deleteById(projectId);
+    },
 
     createTask: function(task) {
         return Task.query().insert(task);

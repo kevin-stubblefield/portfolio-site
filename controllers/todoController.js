@@ -35,6 +35,12 @@ router.post('/', utils.requireAuth, async function(req, res) {
     await db.createProject(body);
 });
 
+router.delete('/:id', utils.requireAuth, async function(req, res) {
+    var projectId = req.params.id;
+    
+    await db.deleteProject(projectId);
+});
+
 router.post('/:id', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'description');
 

@@ -296,11 +296,13 @@ TODO DASHBOARD
 
 .projects li:first-of-type {
     border-top: 1px solid #bbb;
-    border-radius: 5px 5px 0 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .projects li:last-of-type {
-    border-radius: 0 0 5px 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     box-shadow: 0 5px 6px -5px #444;
 }
 
