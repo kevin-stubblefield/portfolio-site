@@ -70,7 +70,7 @@ function onAddTaskClick(sender) {
         });
 
         if (newListItem) {
-            enterEditMode(newListItem);
+            enterEditTaskMode(newListItem);
         }
     });
 }
@@ -81,7 +81,7 @@ function onCompleteClick(parent) {
 }
 
 function onEditClick(parent) {
-    enterEditMode(parent);
+    enterEditTaskMode(parent);
 }
 
 function onDeleteClick(parent) {
@@ -165,7 +165,7 @@ function makeListItem(body) {
     return li;
 }
 
-function enterEditMode(parent) {
+function enterEditTaskMode(parent) {
     parent.lastChild.classList.add('hidden');
     var oldText = parent.firstChild.innerText;
     var input = document.createElement('input');
