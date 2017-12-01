@@ -1,6 +1,13 @@
 extends ./layouts/layout
 
 block content
+    if Object.keys(user).length > 0
+        div#menu.hidden
+            button.button New Project
+            button.button Edit Project
+            button.button Delete Project
+        div#menu-button
+            i.fa.fa-bars.fa-lg(onclick="onMenuButtonClick(this.parentNode)")
     div.container.dashboard
         if projects.length
             ul.projects

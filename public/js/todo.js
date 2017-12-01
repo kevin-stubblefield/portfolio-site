@@ -14,6 +14,11 @@ var selectedProject = listItems[0].project;
 
 update();
 
+function onMenuButtonClick(sender) {
+    sender.classList.toggle('clicked');
+    document.getElementById('menu').classList.toggle('hidden');
+}
+
 function onProjectClick(sender) {
     for (var i = 0; i < listItems.length; i++) {
         listItems[i].classList.remove('active');
@@ -91,6 +96,7 @@ function update() {
 
 function generateIcons() {
     var icons = document.createElement('div');
+    icons.className = 'icons';
     
     var deleteIcon = document.createElement('i');
     deleteIcon.className = 'fa fa-trash-o';

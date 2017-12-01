@@ -369,8 +369,64 @@ TODO DASHBOARD
     color: #777;
 }
 
-.hidden {
+.icons.hidden {
     display: none;
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 192px;
+    height: 100%;
+    background: #fff;
+    border-right: 1px solid #bbb;
+    transition: left 250ms ease-in-out;
+}
+
+#menu.hidden {
+    left: -192px;
+}
+
+#menu .button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+#menu-button {
+    position: fixed;
+    top: 15%;
+    margin-top: -30px;
+    left: 0;
+    height: 80px;
+    width: 45px;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: left 250ms ease-in-out;
+}
+
+#menu-button.clicked {
+    left: 192px;
+}
+
+#menu-button:hover {
+    background: #4D642D;
+}
+
+#menu-button .fa {
+    color: #4D642D;
+    line-height: 80px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+}
+
+#menu-button:hover .fa {
+    color: #fff;
 }
 
 /*****************
