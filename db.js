@@ -22,7 +22,7 @@ module.exports = {
     },
 
     getPosts: function() {
-        return Post.query().eager('messages');
+        return Post.query().orderBy('created_at', 'desc').eager('messages');
     },
 
     getPostById: function(postId) {
