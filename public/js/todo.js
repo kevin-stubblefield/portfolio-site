@@ -69,11 +69,18 @@ function createNewProject(title, li) {
 }
 
 function onEditProjectClick() {
-    
+    var toEdit;
+    for (var i = 0; i < listItems.length; i++) {
+        if (listItems[i].project.id === selectedProject.id) {
+            toEdit = listItems[i];
+            break;
+        }
+    }
+    enterEditProjectMode(toEdit, true);
 }
 
 function onProjectDescriptionClick(sender) {
-    enterEditProjectDescriptionMode(sender);
+    enterEditProjectMode(sender, false);
 }
 
 function onDeleteProjectClick() {
@@ -129,7 +136,6 @@ function onDeleteClick(parent) {
 
 function update() {
     projectDescription.innerText = selectedProject.description;
-    projectDescription.setAttribute('data-project-id', selectedProject.id);
 
     var addButton = document.getElementById('add-task-button');
     if (addButton) {
@@ -137,6 +143,7 @@ function update() {
     }
 
     if (isLoggedIn()) {
+        projectDescription.setAttribute('onclick', 'onProjectDescriptionClick(this)');
         var button = document.createElement('button');
         button.setAttribute('id', 'add-task-button');
         button.innerText = 'Add Task';
@@ -257,7 +264,7 @@ function enterEditTaskMode(parent) {
     input.focus();
 }
 
-function enterEditProjectDescriptionMode(parent) {
+function enterEditProjectMode(parent, title) {
     var oldText = parent.innerText;
     var input = document.createElement('input');
     input.className = 'input';
@@ -270,9 +277,15 @@ function enterEditProjectDescriptionMode(parent) {
                 parent.innerText = oldText;
             } else {
                 parent.innerText = this.value;
+                var body = {};
+                if (title) {
+                    body.title = this.value;
+                } else {
+                    body.description = this.value;
+                }
                 axios.patch(
-                    '/todo/' + parent.getAttribute('data-project-id'),
-                    { description: this.value }
+                    '/todo/' + selectedProject.id,
+                    body
                 );
             }
             return false;

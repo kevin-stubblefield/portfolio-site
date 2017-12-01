@@ -368,6 +368,11 @@ TODO DASHBOARD
 
 .project-task.complete {
     background: rgb(208, 233, 173);
+    border-bottom: 1px solid #bbb;
+}
+
+.project-task.complete:last-of-type {
+    border: none;
 }
 
 .icons.hidden {
