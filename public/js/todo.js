@@ -28,6 +28,34 @@ function onCompleteClick(parent) {
     axios.patch('/todo/tasks/complete/' + parent.getAttribute('data-task-id'));
 }
 
+function onEditClick(parent) {
+    parent.lastChild.classList.add('hidden');
+    var oldText = parent.firstChild.innerText;
+    var input = document.createElement('input');
+    input.className = 'input';
+    input.setAttribute('placeholder', oldText);
+    input.onkeypress = function(event) {
+        if (!event) event = window.event;
+        var keyCode = event.keyCode || event.which;
+        if (keyCode === 13) {
+            parent.lastChild.classList.remove('hidden');
+            if (this.value === '') {
+                parent.firstChild.innerText = oldText;
+            } else {
+                parent.firstChild.innerText = this.value;
+                axios.patch(
+                    '/todo/tasks/' + parent.getAttribute('data-task-id'),
+                    { description: this.value }
+                );
+            }
+            return false;
+        }
+    }
+    
+    parent.firstChild.innerHTML = '';
+    parent.firstChild.appendChild(input);
+}
+
 function onDeleteClick(parent) {
     projectTasks.removeChild(parent);
     axios.delete('/todo/tasks/' + parent.getAttribute('data-task-id'));
@@ -45,8 +73,11 @@ function update() {
         var text = document.createTextNode(
             selectedProject.tasks[i].description
         );
+
+        var span = document.createElement('span');
         
-        li.appendChild(text);
+        span.appendChild(text);
+        li.appendChild(span);
 
         if (Object.keys(user).length > 0) {
             var icons = generateIcons();
@@ -71,6 +102,7 @@ function generateIcons() {
 
     var editIcon = document.createElement('i');
     editIcon.className = 'fa fa-pencil-square-o';
+    editIcon.setAttribute('onclick', 'onEditClick(this.parentNode.parentNode)');
 
     var completeIcon = document.createElement('i');
     completeIcon.className = 'fa fa-check';

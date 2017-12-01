@@ -355,6 +355,10 @@ TODO DASHBOARD
     color: #777;
 }
 
+.hidden {
+    display: none;
+}
+
 /*****************
 FOOTER
 *****************/

@@ -49,6 +49,13 @@ router.patch('/tasks/complete/:taskId', utils.requireAuth, async function(req, r
     await db.patchTask(taskId, { complete: true });
 });
 
+router.patch('/tasks/:taskId', utils.requireAuth, async function(req, res) {
+    var body = _.pick(req.body, 'description');
+    var taskId = req.params.taskId;
+
+    await db.patchTask(taskId, body);
+});
+
 router.delete('/tasks/:taskId', utils.requireAuth, async function(req, res) {
     var taskId = req.params.taskId;
 
