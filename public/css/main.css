@@ -338,6 +338,7 @@ TODO DASHBOARD
     line-height: 60px;
     background: rgb(240, 240, 240);
     color: #777;
+    transition: all 250ms ease-in-out;
 }
 
 .project-task.complete {
