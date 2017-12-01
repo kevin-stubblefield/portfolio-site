@@ -43,4 +43,10 @@ router.post('/:id', utils.requireAuth, async function(req, res) {
     await db.createTask(body);
 });
 
+router.delete('/tasks/:taskId', utils.requireAuth, async function(req, res) {
+    var taskId = req.params.taskId;
+
+    await db.deleteTask(taskId);
+});
+
 module.exports = router;

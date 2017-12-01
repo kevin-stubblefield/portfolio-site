@@ -25,6 +25,7 @@ function onProjectClick(sender) {
 
 function onDeleteClick(parent) {
     projectTasks.removeChild(parent);
+    axios.delete('/todo/tasks/' + parent.getAttribute('data-task-id'));
 }
 
 function update() {

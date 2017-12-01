@@ -47,5 +47,9 @@ module.exports = {
 
     createTask: function(task) {
         return Task.query().insert(task);
+    },
+
+    deleteTask: function(taskId) {
+        return Task.query().deleteById(taskId);
     }
 }
