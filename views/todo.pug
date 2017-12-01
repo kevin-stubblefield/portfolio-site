@@ -7,9 +7,13 @@ block content
                 each project in projects
                     li(onclick="onProjectClick(this)")= project.title
             div.project-details
+                h4#project-description
+                ul#project-tasks
         else
             div.message.warning
                 p No projects at this time
 
     script var projects = !{JSON.stringify(projects).replace(/<\//g, '<\\/')}
+    script var user = !{JSON.stringify(user).replace(/<\//g, '<\\/')}
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
     script(src="/js/todo.js")

@@ -20,7 +20,7 @@ router.get('/', async function(req, res) {
         });
     }
 
-    var user = utils.getUser(req.cookies.token);
+    var user = utils.getUser(req.cookies.token) || {};
 
     res.render('todo', {
         title: 'My Todo List',

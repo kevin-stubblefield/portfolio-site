@@ -322,6 +322,34 @@ TODO DASHBOARD
     box-shadow: 0 5px 6px -5px #444;
 }
 
+#project-description {
+    border-bottom: 1px solid #bbb;
+    padding: 15px;
+}
+
+#project-tasks {
+    padding: 15px;
+}
+
+.project-task {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    line-height: 60px;
+    background: rgb(240, 240, 240);
+    color: #777;
+}
+
+.project-task .fa {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.project-task:nth-of-type(2) {
+    background: #fff;
+    color: #777;
+}
+
 /*****************
 FOOTER
 *****************/
