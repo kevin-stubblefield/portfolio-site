@@ -322,9 +322,19 @@ TODO DASHBOARD
     box-shadow: 0 5px 6px -5px #444;
 }
 
-#project-description {
+#project-details-header {
+    display: flex;
+    display: -ms-flex;
+
+    justify-content: space-between;
+    -ms-flex-pack: space-between;
+
     border-bottom: 1px solid #bbb;
     padding: 15px;
+    line-height: 40px;
+}
+
+#project-description {
 }
 
 #project-tasks {
@@ -333,7 +343,11 @@ TODO DASHBOARD
 
 .project-task {
     display: flex;
+    display: -ms-flex;
+
     justify-content: space-between;
+    -ms-flex-pack: space-between;
+
     padding: 0 15px;
     line-height: 60px;
     background: rgb(240, 240, 240);
@@ -350,7 +364,7 @@ TODO DASHBOARD
     cursor: pointer;
 }
 
-.project-task:nth-of-type(2) {
+.project-task:nth-of-type(even) {
     background: #fff;
     color: #777;
 }

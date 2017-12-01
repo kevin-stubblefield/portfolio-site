@@ -13,6 +13,7 @@ exports.up = function(knex) {
             table.increments().primary();
             table.integer('project_id').unsigned().notNullable().references('projects.id');
             table.string('description');
+            table.string('category').notNullable().defaultTo('feature');
             table.boolean('complete').notNullable().defaultTo(false);
             table.integer('weight').notNullable().defaultTo(0);
             table.decimal('hours_spent', 17, 2).notNullable().defaultTo(0);

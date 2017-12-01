@@ -40,7 +40,9 @@ router.post('/:id', utils.requireAuth, async function(req, res) {
 
     body.projectId = req.params.id;
 
-    await db.createTask(body);
+    var newTask = await db.createTask(body);
+
+    res.status(200).json(newTask);
 });
 
 router.patch('/tasks/complete/:taskId', utils.requireAuth, async function(req, res) {
