@@ -70,7 +70,7 @@ function update() {
         projectHeader.removeChild(addButton);
     }
 
-    if (Object.keys(user).length > 0) {
+    if (isLoggedIn()) {
         var button = document.createElement('button');
         button.setAttribute('id', 'add-task-button');
         button.innerText = 'Add Task';
@@ -122,7 +122,7 @@ function makeListItem(body) {
     span.appendChild(text);
     li.appendChild(span);
 
-    if (Object.keys(user).length > 0) {
+    if (isLoggedIn()) {
         var icons = generateIcons();
         li.appendChild(icons);
     }
@@ -168,4 +168,8 @@ function enterEditMode(parent) {
     parent.firstChild.innerHTML = '';
     parent.firstChild.appendChild(input);
     input.focus();
+}
+
+function isLoggedIn() {
+    return Object.keys(user).length > 0;
 }
