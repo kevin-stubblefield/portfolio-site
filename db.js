@@ -51,5 +51,9 @@ module.exports = {
 
     deleteTask: function(taskId) {
         return Task.query().deleteById(taskId);
+    },
+
+    patchTask: function(taskId, task) {
+        return Task.query().patch(task).where('id', taskId);
     }
 }

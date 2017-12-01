@@ -340,6 +340,10 @@ TODO DASHBOARD
     color: #777;
 }
 
+.project-task.complete {
+    background: rgb(208, 233, 173);
+}
+
 .project-task .fa {
     margin-left: 15px;
     cursor: pointer;

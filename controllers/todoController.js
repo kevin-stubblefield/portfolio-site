@@ -43,6 +43,12 @@ router.post('/:id', utils.requireAuth, async function(req, res) {
     await db.createTask(body);
 });
 
+router.patch('/tasks/complete/:taskId', utils.requireAuth, async function(req, res) {
+    var taskId = req.params.taskId;
+
+    await db.patchTask(taskId, { complete: true });
+});
+
 router.delete('/tasks/:taskId', utils.requireAuth, async function(req, res) {
     var taskId = req.params.taskId;
 

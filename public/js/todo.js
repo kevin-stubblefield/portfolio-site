@@ -23,6 +23,11 @@ function onProjectClick(sender) {
     update();
 }
 
+function onCompleteClick(parent) {
+    parent.classList.add('complete');
+    axios.patch('/todo/tasks/complete/' + parent.getAttribute('data-task-id'));
+}
+
 function onDeleteClick(parent) {
     projectTasks.removeChild(parent);
     axios.delete('/todo/tasks/' + parent.getAttribute('data-task-id'));
@@ -49,6 +54,9 @@ function update() {
         }
 
         li.className = 'project-task';
+        if (selectedProject.tasks[i].complete) {
+            li.classList.add('complete');
+        }
         li.setAttribute('data-task-id', selectedProject.tasks[i].id);
         projectTasks.appendChild(li);
     }
@@ -66,6 +74,7 @@ function generateIcons() {
 
     var completeIcon = document.createElement('i');
     completeIcon.className = 'fa fa-check';
+    completeIcon.setAttribute('onclick', 'onCompleteClick(this.parentNode.parentNode)');
 
     icons.appendChild(completeIcon);
     icons.appendChild(editIcon);
