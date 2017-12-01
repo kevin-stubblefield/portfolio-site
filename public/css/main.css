@@ -57,6 +57,7 @@ TYPOGRAPHY
 
 a,
 p,
+li,
 h1,
 h2,
 h3,
@@ -265,6 +266,60 @@ BLOG POST
 .comment .body {
     width: 640px;
     margin: 0 auto;
+}
+
+/*****************
+TODO DASHBOARD
+*****************/
+
+.dashboard {
+    display: flex;
+    display: -ms-flex;
+
+    justify-content: space-between;
+    -ms-flex-pack: space-between;
+}
+
+.projects {
+    width: 192px;
+}
+
+.projects li {
+    padding: 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    border: 1px solid #bbb;
+    border-top: none;
+    transition: all 250ms ease-in-out;
+}
+
+.projects li:first-of-type {
+    border-top: 1px solid #bbb;
+    border-radius: 5px 5px 0 0;
+}
+
+.projects li:last-of-type {
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 5px 6px -5px #444;
+}
+
+.projects li.active {
+    background: #4D642D;
+    color: #fff;
+}
+
+.projects li:hover {
+    background: #4D642D;
+    cursor: pointer;
+    color: #fff;
+}
+
+.project-details {
+    width: 718px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    box-shadow: 0 5px 6px -5px #444;
 }
 
 /*****************

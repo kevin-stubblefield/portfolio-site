@@ -1,19 +1,15 @@
 extends ./layouts/layout
 
 block content
-    div.container
+    div.container.dashboard
         if projects.length
-            each project in projects
-                div.entry-item
-                    a.title(href="/todo/" + project.id)
-                        header.header= project.title
-                    div.body
-                        div.post-preview
-                            p= project.description
-                        each task in project.tasks
-                            p= task.description
+            ul.projects
+                each project in projects
+                    li(onclick="onProjectClick(this)")= project.title
+            div.project-details
         else
             div.message.warning
                 p No projects at this time
 
-    script var data = !{JSON.stringify(projects).replace(/<\//g, '<\\/')}
+    script var projects = !{JSON.stringify(projects).replace(/<\//g, '<\\/')}
+    script(src="/js/todo.js")
