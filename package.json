@@ -16,6 +16,9 @@
     "url": "https://github.com/kevin-stubblefield/portfolio-site/issues"
   },
   "homepage": "https://github.com/kevin-stubblefield/portfolio-site#readme",
+  "engines": {
+    "node": "8.5.0"
+  },
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
