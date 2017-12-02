@@ -33,6 +33,12 @@ router.get('/createPost', utils.requireAuth, function (req, res) {
     });
 });
 
+router.get('/editPost/:id', utils.requireAuth, async function(req, res) {
+    res.render('editPost', {
+        title: 'Edit Post'
+    });
+});
+
 router.get('/:url', async function (req, res) {
     var url = req.params.url;
     var post = await db.getPostByUrl(url);
@@ -74,6 +80,15 @@ router.post('/', utils.requireAuth, async function (req, res) {
     } else {
         res.sendStatus(200);
     }
+});
+
+router.patch('/:id', utils.requireAuth, async function(req, res) {
+    var body = _.pick(req.body, 'url');
+
+    var postId = req.params.id;
+
+    var post = await db.patchPost(postId, body);
+    res.status(200).json(post);
 });
 
 router.post('/:id', async function (req, res) {

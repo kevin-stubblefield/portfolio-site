@@ -33,6 +33,10 @@ module.exports = {
         return Post.query().findOne('url', url).eager('messages');
     },
 
+    patchPost: function(postId, post) {
+        return Post.query().patch(post).where('id', postId);
+    },
+
     createMessage: function(message) {
         return Message.query().insert(message);
     },
