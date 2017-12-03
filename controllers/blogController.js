@@ -34,8 +34,12 @@ router.get('/createPost', utils.requireAuth, function (req, res) {
 });
 
 router.get('/editPost/:id', utils.requireAuth, async function(req, res) {
+    var postId = req.params.id;
+    var post = await db.getPostById(postId);
+
     res.render('editPost', {
-        title: 'Edit Post'
+        title: 'Edit Post',
+        post: post
     });
 });
 
@@ -82,25 +86,24 @@ router.post('/', utils.requireAuth, async function (req, res) {
     }
 });
 
-router.patch('/:id', utils.requireAuth, async function(req, res) {
-    var body = _.pick(req.body, 'url');
-
+router.post('/:id', utils.requireAuth, async function(req, res) {
+    var body = _.pick(req.body, 'title', 'markdownContent');
     var postId = req.params.id;
-
     var post = await db.patchPost(postId, body);
-    res.status(200).json(post);
+
+    res.redirect('/blog/' + post.url);
 });
 
-router.post('/:id', async function (req, res) {
+router.post('/:id/messages', async function (req, res) {
     var body = _.pick(req.body, 'name', 'content', 'postId');
 
     if (body.content.trim() === '') {
-        return res.redirect('/blog/' + body.postId);
+        return res.redirect('/blog/' + req.body.url);
     }
 
     await db.createMessage(body);
 
-    res.redirect('/blog/' + body.postId);
+    res.redirect('/blog/' + req.body.url);
 });
 
 module.exports = router;

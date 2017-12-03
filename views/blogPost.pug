@@ -9,7 +9,7 @@ block content
             div.body!= post.htmlContent
 
         div.comments
-            form#comment-form(method="post" action="/blog/" + post.id)
+            form#comment-form(method="post" action="/blog/" + post.id + '/messages')
                 div.field
                     input.input(type="text" name="name" placeholder="Name (Optional)")
 
@@ -19,6 +19,7 @@ block content
                 div.field
                     input.button(type="submit" name="submit" value="Submit")
 
+                input(type="hidden" name="url" value=post.url)
                 input(type="hidden" name="postId" value=post.id)
 
             if post.messages.length

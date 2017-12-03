@@ -34,7 +34,7 @@ module.exports = {
     },
 
     patchPost: function(postId, post) {
-        return Post.query().patch(post).where('id', postId);
+        return Post.query().patchAndFetchById(postId, post);
     },
 
     createMessage: function(message) {

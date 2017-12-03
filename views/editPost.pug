@@ -1,0 +1,18 @@
+extends ./layouts/layout
+
+block content
+    div.container
+        form#post-form(method="post" action="/blog/" + post.id)
+            div.field
+                input.input(type="text" name="title" value=post.title)
+
+            div.field
+                textarea#post.textarea(name="markdownContent") #{post.markdownContent}
+
+            div.field
+                input.button(type="submit" name="submit" value="Edit")
+
+            input(type="hidden" name="fromBrowser" value="true")
+
+        script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+        script(type="text/javascript" src="/js/blogPost.js")
