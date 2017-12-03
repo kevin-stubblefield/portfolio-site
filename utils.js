@@ -25,7 +25,8 @@ module.exports = {
                     return res.status(403).render('error', {
                         title: '403',
                         errorCode: 403,
-                        errorMessage: 'Access Denied'
+                        errorMessage: 'Access Denied',
+                        user: req.user
                     });
                 } else {
                     req.user = decoded;
@@ -36,18 +37,21 @@ module.exports = {
             return res.status(403).render('error', {
                 title: '403',
                 errorCode: 403,
-                errorMessage: 'Access Denied'
+                errorMessage: 'Access Denied',
+                user: req.user
             });
         }
     },
 
-    getUser: function(token) {
-        var user;
+    getUser: function(req, res, next) {
+        var user = {};
+        var token = req.cookies.token;
 
         if (token) {
             user = jwt.verify(token, process.env.TOKEN_SECRET)
         }
 
-        return user;
+        req.user = user;
+        next();
     }
 }

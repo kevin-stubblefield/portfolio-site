@@ -33,7 +33,8 @@ app.get('/*', function (req, res) {
     res.render('error', {
         title: '404',
         errorCode: 404,
-        errorMessage: 'Page not found'
+        errorMessage: 'Page not found',
+        user: req.user
     });
 });
 

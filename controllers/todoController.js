@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({
     extended: true
 }));
 
-router.get('/', async function(req, res) {
+router.get('/', utils.getUser, async function(req, res) {
     var projects = await db.getProjects();
     if (!projects) {
         return res.render('error', {
@@ -20,12 +20,10 @@ router.get('/', async function(req, res) {
         });
     }
 
-    var user = utils.getUser(req.cookies.token) || {};
-
     res.render('todo', {
         title: 'My Todo List',
         projects: projects,
-        user: user
+        user: req.user
     });
 });
 

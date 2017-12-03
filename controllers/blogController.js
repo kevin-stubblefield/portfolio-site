@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({
     extended: true
 }));
 
-router.get('/', async function (req, res) {
+router.get('/', utils.getUser, async function (req, res) {
     var posts = await db.getPosts();
 
     posts.forEach((post) => {
@@ -23,7 +23,8 @@ router.get('/', async function (req, res) {
 
     res.render('blog', {
         title: 'My Blog',
-        posts: posts
+        posts: posts,
+        user: req.user
     });
 });
 
@@ -43,7 +44,7 @@ router.get('/editPost/:id', utils.requireAuth, async function(req, res) {
     });
 });
 
-router.get('/:url', async function (req, res) {
+router.get('/:url', utils.getUser, async function (req, res) {
     var url = req.params.url;
     var post = await db.getPostByUrl(url);
 
@@ -62,7 +63,8 @@ router.get('/:url', async function (req, res) {
 
     res.render('blogPost', {
         title: post.title,
-        post: post
+        post: post,
+        user: req.user
     });
 });
 

@@ -2,6 +2,8 @@ extends ./layouts/layout
 
 block content
     div.container
+        if Object.keys(user).length > 0
+            a.button(href="/blog/editPost/" + post.id) Edit Post
         div.post
             h1.title= post.title
             p.date= post.formattedDate

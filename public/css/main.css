@@ -99,6 +99,11 @@ h4 {
     font-size: 1.35em;
 }
 
+a.button {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
 /*****************
 GENERAL LAYOUT
 *****************/
@@ -125,10 +130,15 @@ HEADER
 
 .nav {
     margin-left: auto;
+    position: relative;
 }
 
 .nav a {
     margin-left: 15px;
+}
+
+.nav a .fa {
+    margin-left: 5px;
 }
 
 /*****************
