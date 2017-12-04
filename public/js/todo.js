@@ -240,7 +240,7 @@ function enterEditTaskMode(parent) {
     var oldText = parent.firstChild.innerText;
     var input = document.createElement('input');
     input.className = 'input';
-    input.setAttribute('placeholder', oldText);
+    input.setAttribute('value', oldText);
     input.onkeypress = function(event) {
         if (!event) event = window.event;
         var keyCode = event.keyCode || event.which;
@@ -272,7 +272,7 @@ function enterEditProjectMode(parent, title) {
     var oldText = parent.innerText;
     var input = document.createElement('input');
     input.className = 'input';
-    input.setAttribute('placeholder', oldText);
+    input.setAttribute('value', oldText);
     input.onkeypress = function(event) {
         if (!event) event = window.event;
         var keyCode = event.keyCode || event.which;
