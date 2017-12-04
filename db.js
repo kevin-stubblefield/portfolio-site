@@ -52,6 +52,10 @@ module.exports = {
     getProjects: function() {
         return Project.query().eager('tasks');
     },
+
+    getProjectById: function(projectId) {
+        return Project.query().findOne('id', projectId).eager('tasks');
+    },
     
     patchProject: function(projectId, project) {
         return Project.query().patch(project).where('id', projectId);

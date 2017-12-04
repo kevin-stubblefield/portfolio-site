@@ -25,9 +25,13 @@ function onProjectClick(sender) {
         listItems[i].classList.remove('active');
     }
 
-    sender.classList.add('active');
-    selectedProject = sender.project;
-    update();
+    axios.get('/todo/' + sender.project.id)
+        .then(function(response) {
+            sender.project = response.data;
+            sender.classList.add('active');
+            selectedProject = sender.project;
+            update();
+        });
 }
 
 function onNewProjectClick() {

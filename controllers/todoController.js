@@ -27,6 +27,12 @@ router.get('/', utils.getUser, async function(req, res) {
     });
 });
 
+router.get('/:id', async function(req, res) {
+    var projectId = req.params.id;
+    var project = await db.getProjectById(projectId);
+    res.json(project);
+});
+
 router.post('/', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'title', 'description', 'category');
 
