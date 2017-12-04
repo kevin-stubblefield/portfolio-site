@@ -21,7 +21,7 @@ router.get('/', utils.getUser, async function(req, res) {
     }
 
     res.render('todo', {
-        title: 'My Todo List',
+        title: 'Project Dashboard',
         projects: projects,
         user: req.user
     });
