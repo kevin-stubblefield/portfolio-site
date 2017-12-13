@@ -54,7 +54,7 @@ module.exports = {
     },
 
     getProjectById: function(projectId) {
-        return Project.query().findOne('id', projectId).eager('tasks');
+        return Project.query().findOne('id', projectId).eager('tasks(orderByCreatedAt)');
     },
     
     patchProject: function(projectId, project) {
