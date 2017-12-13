@@ -22,6 +22,14 @@ class Task extends Model {
         }
     }
 
+    static get namedFilters() {
+        return {
+            orderByCreatedAt: function(builder) {
+                builder.orderBy('created_at');
+            }
+        }
+    }
+
     $formatDatabaseJson(json) {
         json = super.$formatDatabaseJson(json);
 

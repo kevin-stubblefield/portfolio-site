@@ -50,7 +50,7 @@ module.exports = {
     },
 
     getProjects: function() {
-        return Project.query().eager('tasks');
+        return Project.query().orderBy('created_at').eager('tasks(orderByCreatedAt)');
     },
 
     getProjectById: function(projectId) {
