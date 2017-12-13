@@ -295,8 +295,11 @@ TODO DASHBOARD
 }
 
 .projects li {
+    display: flex;
+    align-items: center;
     padding: 10px;
-    line-height: 40px;
+    line-height: 22px;
+    min-height: 40px;
     font-size: 18px;
     border: 1px solid #bbb;
     border-top: none;
@@ -337,16 +340,23 @@ TODO DASHBOARD
     display: flex;
     display: -ms-flex;
 
+    align-content: center;
+    -ms-flex-align: center;
+
     justify-content: space-between;
     -ms-flex-pack: space-between;
 
     border-bottom: 1px solid #bbb;
     padding: 15px;
-    line-height: 40px;
+    line-height: 30px;
 }
 
 #project-description {
     cursor: pointer;
+}
+
+#add-task-button {
+    min-width: 120px;
 }
 
 #project-tasks {
@@ -357,11 +367,14 @@ TODO DASHBOARD
     display: flex;
     display: -ms-flex;
 
+    align-items: center;
+
     justify-content: space-between;
     -ms-flex-pack: space-between;
 
     padding: 0 15px;
-    line-height: 60px;
+    line-height: 22px;
+    min-height: 60px;
     background: rgb(240, 240, 240);
     color: #777;
 }
@@ -383,6 +396,10 @@ TODO DASHBOARD
 
 .project-task.complete:last-of-type {
     border: none;
+}
+
+.icons {
+    min-width: 90px;
 }
 
 .icons.hidden {
