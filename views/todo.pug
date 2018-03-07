@@ -1,7 +1,7 @@
 extends ./layouts/layout
 
 block content
-    if Object.keys(user).length > 0
+    if Object.keys(user).length > 0 && user.role > 0
         div#menu.hidden
             button.button(onclick="onNewProjectClick()") New Project
             button.button(onclick="onEditProjectClick()") Edit Project

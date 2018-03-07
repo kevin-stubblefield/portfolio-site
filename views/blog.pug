@@ -2,7 +2,7 @@ extends ./layouts/layout
 
 block content
     div.container
-        if Object.keys(user).length > 0
+        if Object.keys(user).length > 0 && user.role > 0
             a.button(href="/blog/createPost") New Post
         if posts.length
             each post in posts
