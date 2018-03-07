@@ -14,32 +14,43 @@ module.exports = {
         }
     },
 
-    requireAuth: function(req, res, next) {
-        var body = _.pick(req.body, 'token');
-    
-        var token = body.token || req.cookies.token;
-    
-        if (token) {
-            jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
-                if (error) {
-                    return res.status(403).render('error', {
-                        title: '403',
-                        errorCode: 403,
-                        errorMessage: 'Access Denied',
-                        user: req.user
-                    });
-                } else {
-                    req.user = decoded;
-                    next();
-                }
-            });
-        } else {
-            return res.status(403).render('error', {
-                title: '403',
-                errorCode: 403,
-                errorMessage: 'Access Denied',
-                user: req.user
-            });
+    requireAuth: function(role) {
+        return function(req, res, next) {
+            var body = _.pick(req.body, 'token');
+        
+            var token = body.token || req.cookies.token;
+        
+            if (token) {
+                jwt.verify(token, process.env.TOKEN_SECRET, function (error, decoded) {
+                    if (error) {
+                        return res.status(403).render('error', {
+                            title: '403',
+                            errorCode: 403,
+                            errorMessage: 'Access Denied',
+                            user: req.user
+                        });
+                    } else {
+                        req.user = decoded;
+                        if (req.user.role < role) {
+                            return res.status(403).render('error', {
+                                title: '403',
+                                errorCode: 403,
+                                errorMessage: 'Access Denied',
+                                user: req.user
+                            });
+                        } else {
+                            next();
+                        }
+                    }
+                });
+            } else {
+                return res.status(403).render('error', {
+                    title: '403',
+                    errorCode: 403,
+                    errorMessage: 'Access Denied',
+                    user: req.user
+                });
+            }
         }
     },
 
