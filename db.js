@@ -1,8 +1,10 @@
-var User = require('./models/user');
-var Post = require('./models/post');
-var Message = require('./models/message');
-var Project = require('./models/todo/project');
-var Task = require('./models/todo/task');
+let User = require('./models/user');
+let Post = require('./models/post');
+let Message = require('./models/message');
+let Project = require('./models/todo/project');
+let Task = require('./models/todo/task');
+let Bill = require('./models/ledger/bill');
+let Payment = require('./models/ledger/payment');
 
 module.exports = {
     createUser: function(user) {
@@ -75,5 +77,9 @@ module.exports = {
 
     patchTask: function(taskId, task) {
         return Task.query().patch(task).where('id', taskId);
+    },
+
+    getBills: function(userId) {
+        return Bill.query().eager('payments');
     }
 }

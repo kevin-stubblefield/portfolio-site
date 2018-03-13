@@ -27,6 +27,15 @@ class Payment extends Model {
                     from: 'payments.paid_to',
                     to: 'users.id'
                 }
+            },
+
+            bill: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: __dirname + '/bill',
+                join: {
+                    from: 'payments.bill_id',
+                    to: 'bills.id'
+                }
             }
         }
     }

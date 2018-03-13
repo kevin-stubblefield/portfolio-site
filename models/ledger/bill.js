@@ -18,6 +18,15 @@ class Bill extends Model {
                     from: 'bills.user_id',
                     to: 'users.id'
                 }
+            },
+
+            payments: {
+                relation: Model.HasManyRelation,
+                modelClass: __dirname + '/payment',
+                join: {
+                    from: 'bills.id',
+                    to: 'payments.bill_id'
+                }
             }
         }
     }
