@@ -1,4 +1,4 @@
-var Model = require('../dbConfig').Model;
+var Model = require('../../dbConfig').Model;
 var _ = require('lodash');
 
 const snakeCase = _.memoize(_.snakeCase);

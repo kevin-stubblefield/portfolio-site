@@ -15,6 +15,10 @@ module.exports = {
         return User.query();
     },
 
+    getOtherUsers: function(userId) {
+        return User.query().where('id', '!=', userId);
+    },
+
     getUserByUsername: function(username) {
         return User.query().findOne('username', username);
     },
@@ -80,6 +84,6 @@ module.exports = {
     },
 
     getBills: function(userId) {
-        return Bill.query().eager('payments');
+        return Bill.query().eager('payments').where('user_id', userId);
     }
 }

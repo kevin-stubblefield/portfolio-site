@@ -1,4 +1,4 @@
-var Model = require('../dbConfig').Model;
+var Model = require('../../dbConfig').Model;
 var _ = require('lodash');
 
 const snakeCase = _.memoize(_.snakeCase);
@@ -38,6 +38,12 @@ class Payment extends Model {
                 }
             }
         }
+    }
+
+    static get namedFilters() {
+        return {
+            excludeUserWhoPaidBill: (builder) => builder.where('paid_by', '!=', 'paid_to')
+        };
     }
     
     $formatDatabaseJson(json) {
