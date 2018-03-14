@@ -76,6 +76,10 @@ class User extends Model {
         this.password = bcrypt.hashSync(this.password, 12);
         this.displayName = this.username;
     }
+
+    $afterGet() {
+        this.displayName = _.capitalize(this.displayName);
+    }
     
     $formatDatabaseJson(json) {
         json = super.$formatDatabaseJson(json);
