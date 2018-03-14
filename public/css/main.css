@@ -465,8 +465,11 @@ TODO DASHBOARD
 BILLS
 *****************/
 
-.add.button {
+.ledger-title {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 15px;
+    align-items: flex-end;
 }
 
 .bills {
@@ -475,6 +478,7 @@ BILLS
     width: 100%;
     border-radius: 5px;
     border: 1px solid #bbb;
+    margin-bottom: 30px;
 }
 
 .bills thead {

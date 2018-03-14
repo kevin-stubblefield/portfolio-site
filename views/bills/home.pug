@@ -2,7 +2,9 @@ extends ../layouts/layout
 
 block content
     div.container
-        button.add.button(onclick="addBill()") Add Bill
+        div.ledger-title
+            h2 Bills
+            button.add.button(onclick="addBill()" style="float: right;") Add Bill
         table.bills
             thead
                 tr.header
@@ -20,4 +22,19 @@ block content
                     tr.bill
                         td.message.warning(colspan="3") No Bills Found
         
-        
+        div.ledger-title
+            h2 Outstanding Payments
+        table.bills
+            thead
+                tr.header
+                    th Amount Owed
+                    th Owed To
+            tbody
+                if outstandingPayments.length > 0
+                    each payment in outstandingPayments
+                        tr.bill
+                            td.amount= '$' + payment.amount
+                            td= payment.paidTo.displayName
+                else
+                    tr.bill
+                        td.message.warning(colspan="2") No Outstanding Payments, Good Job!
