@@ -2,3 +2,20 @@ extends ../layouts/layout
 
 block content
     div.container
+        button.add.button(onclick="addBill()") Add Bill
+        table.bills
+            thead
+                tr.header
+                    th Amount
+                    th Category
+                    th Image
+            tbody
+                if bills.length > 0
+                    each bill in bills
+                        tr.bill
+                            td.amount= '$' + bill.amount
+                            td.category= bill.category
+                            td.image Placeholder
+                else
+                    tr.bill
+                        td.message.warning(colspan="3") No Bills Found

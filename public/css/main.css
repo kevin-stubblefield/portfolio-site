@@ -63,7 +63,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+thead,
+tbody {
     font-family: 'Ubuntu', sans-serif;
     text-decoration: none;
     color: #777;
@@ -228,9 +230,6 @@ BLOG
 
 .entry-item .header {
     font-size: 1.25em;
-}
-
-.entry-item .body {
 }
 
 .entry-item .footer {
@@ -460,6 +459,68 @@ TODO DASHBOARD
 
 #menu-button:hover .fa {
     color: #fff;
+}
+
+/*****************
+BILLS
+*****************/
+
+.add.button {
+    margin-bottom: 15px;
+}
+
+.bills {
+    display: table;
+    border-collapse: separate;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+}
+
+.bills thead {
+    font-size: 1.4rem;
+}
+
+.bills thead th {
+    padding: 15px 0;
+    border-bottom: 1px solid #bbb;
+}
+
+.bills tbody {
+    font-size: 1.1rem;
+}
+
+.bills tbody tr {
+    background: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
+.bills tbody tr:hover {
+    background: rgb(230, 230, 230);
+}
+
+.bills tbody tr:nth-of-type(even) {
+    background: #fff;
+}
+
+.bills tbody tr:nth-of-type(even):hover {
+    background: rgb(230, 230, 230);
+}
+
+.bills td {
+    text-align: center;
+    padding: 15px;
+}
+
+.bills td.message.warning {
+    cursor: default;
+    border-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.bills td.amount {
+    text-align: right;
 }
 
 /*****************
