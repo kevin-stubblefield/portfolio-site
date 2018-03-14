@@ -484,6 +484,7 @@ BILLS
     border-radius: 5px;
     border: 1px solid #bbb;
     margin-bottom: 30px;
+    box-shadow: 0 5px 6px -5px #444;
 }
 
 .bills thead {
@@ -499,22 +500,18 @@ BILLS
     font-size: 1.1rem;
 }
 
-.bills tbody tr {
+.bills tbody tr.bill {
     background: rgb(240, 240, 240);
 }
 
-.bills tbody tr.bill:hover {
+.bills tbody tr.bill:hover,
+.bills tbody tr.bill.odd:hover {
     cursor: pointer;
     background: rgb(230, 230, 230);
 }
 
-.bills tbody tr:nth-of-type(even) {
+.bills tbody tr.bill.odd {
     background: #fff;
-}
-
-.bills tbody tr.bill:nth-of-type(even):hover {
-    cursor: pointer;
-    background: rgb(230, 230, 230);
 }
 
 .bills td {
@@ -522,15 +519,50 @@ BILLS
     padding: 15px;
 }
 
-.bills td.message.warning {
+.bills td.payments {
+    padding: 0;
+    background: #fff;
+}
+
+.bills td.message {
     cursor: default;
     border-radius: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
+.bills td.message.complete {
+    background: rgb(208, 221, 191);
+}
+
 .bills td.amount {
     text-align: right;
+}
+
+.bills .hide {
+    display: none;
+}
+
+.payments {
+    width: 100%;
+}
+
+thead tr.payment-head {
+    background: rgb(208, 221, 191);
+}
+
+tbody tr.payment {
+    background: #fff;
+}
+
+tbody tr.payment.odd {
+    background: rgb(208, 221, 191);
+}
+
+td.awaiting span {
+    background-color: #ffcccc;
+    padding: 5px;
+    border-radius: 2px;
 }
 
 /*****************

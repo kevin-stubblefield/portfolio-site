@@ -42,7 +42,7 @@ class Payment extends Model {
 
     static get namedFilters() {
         return {
-            excludeUserWhoPaidBill: (builder) => builder.where('paid_by', '!=', 'paid_to')
+            awaitingVerification: (builder) => builder.where('status', 'Awaiting Verification')
         };
     }
     

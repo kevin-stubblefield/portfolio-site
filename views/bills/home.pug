@@ -11,13 +11,53 @@ block content
                     th Amount
                     th Category
                     th Image
+                    th Awaiting Response
             tbody
                 if bills.length > 0
+                    - let billCount = 0;
                     each bill in bills
-                        tr.bill
-                            td.amount= '$' + bill.amount
-                            td.category= bill.category
-                            td.image Placeholder
+                        if billCount % 2 === 0
+                            tr.bill(onclick=`onBillClicked(${JSON.stringify(bill)})`)
+                                td.amount= '$' + bill.amount
+                                td.category= bill.category
+                                td.image Placeholder
+                                td.awaiting(id=`awaiting-${bill.id}`)
+                                    if bill.payments.length > 0
+                                        span= bill.payments.length
+                        else
+                            tr.bill.odd(onclick=`onBillClicked(${JSON.stringify(bill)})`)
+                                td.amount= '$' + bill.amount
+                                td.category= bill.category
+                                td.image Placeholder
+                                td.awaiting(id=`awaiting-${bill.id}`)
+                                    if bill.payments.length > 0
+                                        span= bill.payments.length
+                        - billCount++;
+                        if bill.payments.length > 0
+                            tr.hide(id=`payments-${bill.id}`)
+                                td.payments(colspan="4")
+                                    table.payments
+                                        thead
+                                            tr.payment-head
+                                                th Amount
+                                                th Paid By
+                                                th Payment Received
+                                        tbody
+                                            - let paymentCount = 0;
+                                            each payment in bill.payments
+                                                if paymentCount % 2 === 0
+                                                    tr.payment
+                                                        td.amount= '$' + payment.amount
+                                                        td= payment.paidBy.displayName
+                                                        td
+                                                            button.paid.button(id=`verify-${payment.id}` onclick=`onVerifyClicked(${JSON.stringify(payment)})`) Verify Payment
+                                                else
+                                                    tr.payment.odd
+                                                        td.amount= '$' + payment.amount
+                                                        td= payment.paidBy.displayName
+                                                        td
+                                                            button.paid.button(id=`verify-${payment.id}` onclick=`onVerifyClicked(${JSON.stringify(payment)})`) Verify Payment
+                                                - paymentCount++;
                 else
                     tr.bill
                         td.message.warning(colspan="3") No Bills Found
@@ -45,7 +85,7 @@ block content
                                     span Requested
                 else
                     tr
-                        td.message.warning(colspan="2") No Outstanding Payments, Good Job!
+                        td.message.complete(colspan="4") No Outstanding Payments, Good Job!
     
     script(src="https://unpkg.com/axios/dist/axios.min.js")
     script(src="/js/bills.js")

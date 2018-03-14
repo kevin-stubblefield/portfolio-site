@@ -84,7 +84,7 @@ module.exports = {
     },
 
     getBills: function(userId) {
-        return Bill.query().eager('payments').where('user_id', userId);
+        return Bill.query().eager('payments(awaitingVerification).paidBy').where('user_id', userId);
     },
 
     getOutstandingPayments: function(userId) {
@@ -92,6 +92,6 @@ module.exports = {
     },
 
     patchPayment: function(paymentId, body) {
-        return Payment.query().patchAndFetchById(paymentId, body);
+        return Payment.query().patchAndFetchById(paymentId, body).eager('bill');
     }
 }
