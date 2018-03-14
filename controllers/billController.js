@@ -13,9 +13,20 @@ router.use(bodyParser.urlencoded({
 router.get('/', utils.requireAuth(0), async function(req, res) {
     let bills = await db.getBills(req.user.id);
 
+    let outstandingPayments = await db.getOutstandingPayments(req.user.id);
+
+    for (let payment in outstandingPayments) {
+        let currentPayment = outstandingPayments[payment];
+        let paidBy = currentPayment.paidBy;
+        let paidTo = currentPayment.paidTo;
+        currentPayment.paidBy = _.pick(paidBy, 'id', 'username', 'displayName', 'role');
+        currentPayment.paidTo = _.pick(paidTo, 'id', 'username', 'displayName', 'role');
+    }
+
     res.render('bills/home', {
         title: _.capitalize(req.user.username) + '\'s Bills',
-        bills: bills
+        bills: bills,
+        outstandingPayments: outstandingPayments
     });
 });
 

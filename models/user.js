@@ -62,7 +62,7 @@ class User extends Model {
             },
 
             sentPayments: {
-                relation: Model.hasManyRelation,
+                relation: Model.HasManyRelation,
                 modelClass: __dirname + '/ledger/payment',
                 join: {
                     from: 'users.id',

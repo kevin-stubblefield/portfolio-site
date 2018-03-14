@@ -85,5 +85,9 @@ module.exports = {
 
     getBills: function(userId) {
         return Bill.query().eager('payments').where('user_id', userId);
+    },
+
+    getOutstandingPayments: function(userId) {
+        return Payment.query().eager('[paidBy, paidTo]').where('paid_by', userId).where('status', '!=', 'Paid');
     }
 }
