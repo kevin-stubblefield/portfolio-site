@@ -24,7 +24,7 @@ router.get('/', utils.requireAuth(0), async function(req, res) {
     }
 
     res.render('bills/home', {
-        title: _.capitalize(req.user.username) + '\'s Bills',
+        title: _.capitalize(req.user.displayName) + '\'s Bills',
         bills: bills,
         outstandingPayments: outstandingPayments
     });

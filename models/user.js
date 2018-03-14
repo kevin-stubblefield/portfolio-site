@@ -74,6 +74,7 @@ class User extends Model {
 
     $beforeInsert() {
         this.password = bcrypt.hashSync(this.password, 12);
+        this.displayName = this.username;
     }
     
     $formatDatabaseJson(json) {
