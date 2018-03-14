@@ -24,7 +24,8 @@ router.post('/authenticate', async function (req, res) {
         });
     }
 
-    var token = jwt.sign(user, process.env.TOKEN_SECRET, {
+    let userToken = _.pick(user, 'id', 'username', 'displayName', 'role');
+    var token = jwt.sign(userToken, process.env.TOKEN_SECRET, {
         expiresIn: "1d"
     });
 
