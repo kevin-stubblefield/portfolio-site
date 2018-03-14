@@ -6,6 +6,7 @@ exports.up = function(knex) {
             table.decimal('amount', 17, 2).notNullable().defaultTo(0).index();
             table.string('category').notNullable().defaultTo('None');
             table.string('image_url').notNullable().defaultTo('');
+            table.bool('paid').notNullable().defaultTo(false);
             table.timestamps(true, true);
         });
 };
