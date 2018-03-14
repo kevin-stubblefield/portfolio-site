@@ -89,5 +89,9 @@ module.exports = {
 
     getOutstandingPayments: function(userId) {
         return Payment.query().eager('[paidBy, paidTo]').where('paid_by', userId).where('status', '!=', 'Paid');
+    },
+
+    patchPayment: function(paymentId, body) {
+        return Payment.query().patchAndFetchById(paymentId, body);
     }
 }

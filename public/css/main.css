@@ -465,6 +465,11 @@ TODO DASHBOARD
 BILLS
 *****************/
 
+.paid.button {
+    padding: 0 15px;
+    margin: 0;
+}
+
 .ledger-title {
     display: flex;
     justify-content: space-between;
@@ -496,10 +501,10 @@ BILLS
 
 .bills tbody tr {
     background: rgb(240, 240, 240);
-    cursor: pointer;
 }
 
-.bills tbody tr:hover {
+.bills tbody tr.bill:hover {
+    cursor: pointer;
     background: rgb(230, 230, 230);
 }
 
@@ -507,7 +512,8 @@ BILLS
     background: #fff;
 }
 
-.bills tbody tr:nth-of-type(even):hover {
+.bills tbody tr.bill:nth-of-type(even):hover {
+    cursor: pointer;
     background: rgb(230, 230, 230);
 }
 

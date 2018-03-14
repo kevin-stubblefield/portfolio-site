@@ -30,4 +30,10 @@ router.get('/', utils.requireAuth(0), async function(req, res) {
     });
 });
 
+router.patch('/payments/:paymentId', utils.requireAuth(0), async function(req, res) {
+    let body = req.body;
+    let updated = await db.patchPayment(req.params.paymentId, body);
+    res.json(updated);
+});
+
 module.exports = router;

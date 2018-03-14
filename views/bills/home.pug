@@ -4,7 +4,7 @@ block content
     div.container
         div.ledger-title
             h2 Bills
-            button.add.button(onclick="addBill()" style="float: right;") Add Bill
+            button.button(onclick="addBill()") Add Bill
         table.bills
             thead
                 tr.header
@@ -27,14 +27,25 @@ block content
         table.bills
             thead
                 tr.header
-                    th Amount Owed
+                    th.amount Amount Owed
                     th Owed To
+                    th Status
+                    th Request Verification
             tbody
                 if outstandingPayments.length > 0
                     each payment in outstandingPayments
-                        tr.bill
+                        tr
                             td.amount= '$' + payment.amount
                             td= payment.paidTo.displayName
+                            td(id=`status-${payment.id}`)= payment.status
+                            td(id=`button-${payment.id}`)
+                                if payment.status === 'Unpaid'
+                                    button.paid.button(onclick=`onPaidClicked(${JSON.stringify(payment)})`) Send Request
+                                else
+                                    span Requested
                 else
-                    tr.bill
+                    tr
                         td.message.warning(colspan="2") No Outstanding Payments, Good Job!
+    
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="/js/bills.js")
