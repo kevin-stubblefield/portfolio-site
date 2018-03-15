@@ -74,15 +74,16 @@ block content
             tbody
                 if outstandingPayments.length > 0
                     each payment in outstandingPayments
-                        tr
-                            td.amount= '$' + payment.amount
+                        tr.outstanding
+                            td.amount(id=`owed-${payment.billId}`)= '$' + payment.amount.toFixed(2)
                             td= payment.paidTo.displayName
-                            td(id=`status-${payment.id}`)= payment.status
-                            td(id=`button-${payment.id}`)
+                            td(id=`status-${payment.billId}-${payment.id}`)= payment.status
+                            td(id=`button-${payment.billId}-${payment.id}`)
                                 if payment.status === 'Unpaid'
-                                    button.paid.button(onclick=`onPaidClicked(${JSON.stringify(payment)})`) Send Request
+                                    input.pay-input(id=`pay-${payment.billId}-${payment.id}` type="text")
+                                    button.paid.button(onclick=`onPaidClicked(${JSON.stringify(payment)})`) Pay
                                 else
-                                    span Requested
+                                    span Awaiting Verification
                 else
                     tr
                         td.message.complete(colspan="4") No Outstanding Payments, Good Job!

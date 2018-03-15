@@ -565,6 +565,24 @@ td.awaiting span {
     border-radius: 2px;
 }
 
+input.pay-input {
+    padding: 0 15px;
+    width: 5rem;
+    margin-right: 15px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #777;
+}
+
+tr.outstanding {
+    background: rgb(240, 240, 240);
+}
+
+tr.outstanding:nth-of-type(even) {
+    background: #fff;
+}
+
 /*****************
 FOOTER
 *****************/

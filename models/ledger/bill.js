@@ -30,6 +30,12 @@ class Bill extends Model {
             }
         }
     }
+
+    static get namedFilters() {
+        return {
+            notPaid: (builder) => builder.where('paid', false)
+        }
+    }
     
     $formatDatabaseJson(json) {
         json = super.$formatDatabaseJson(json);

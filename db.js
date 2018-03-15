@@ -16,7 +16,7 @@ module.exports = {
     },
 
     getOtherUsers: function(userId) {
-        return User.query().where('id', '!=', userId);
+        return User.query().where('id', '!=', userId).eager('bills(notPaid)');
     },
 
     getUserByUsername: function(username) {
@@ -84,14 +84,22 @@ module.exports = {
     },
 
     getBills: function(userId) {
-        return Bill.query().eager('payments(awaitingVerification).paidBy').where('user_id', userId);
+        return Bill.query().eager('payments(awaitingVerification).paidBy').where('user_id', userId).where('paid', false);
     },
 
-    getOutstandingPayments: function(userId) {
-        return Payment.query().eager('[paidBy, paidTo]').where('paid_by', userId).where('status', '!=', 'Paid');
+    getOtherUsersBills: function(userId) {
+        return Bill.query().eager('[payments, user]').where('user_id', '!=', userId).where('paid', false);
+    },
+
+    getPaymentsAwaitingVerification: function(userId) {
+        return Payment.query().eager('[paidBy, paidTo]').where('paid_by', userId).where('status', '!=', 'Verified');
     },
 
     patchPayment: function(paymentId, body) {
         return Payment.query().patchAndFetchById(paymentId, body).eager('bill');
+    },
+
+    createPayment: function(body) {
+        return Payment.query().insert(body);
     }
 }

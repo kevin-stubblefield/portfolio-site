@@ -13,14 +13,32 @@ router.use(bodyParser.urlencoded({
 router.get('/', utils.requireAuth(0), async function(req, res) {
     let bills = await db.getBills(req.user.id);
 
-    let outstandingPayments = await db.getOutstandingPayments(req.user.id);
+    let otherBills = await db.getOtherUsersBills(req.user.id);
 
-    for (let payment in outstandingPayments) {
-        let currentPayment = outstandingPayments[payment];
-        let paidBy = currentPayment.paidBy;
-        let paidTo = currentPayment.paidTo;
-        currentPayment.paidBy = _.pick(paidBy, 'id', 'username', 'displayName', 'role');
-        currentPayment.paidTo = _.pick(paidTo, 'id', 'username', 'displayName', 'role');
+    let outstandingPayments = [];
+    for (let i = 0; i < otherBills.length; i++) {
+        let currentBill = otherBills[i];
+        let amountPaid = 0;
+
+        currentBill.user = _.pick(currentBill.user, 'id', 'username', 'displayName', 'role');
+
+        for (let j = 0; j < currentBill.payments.length; j++) {
+            let currentPayment = currentBill.payments[j];
+            if (currentPayment.paidBy === req.user.id) {
+                amountPaid += parseFloat(currentPayment.amount);
+            }
+        }
+
+        let amountOwed = parseFloat(currentBill.amount) / 4 - amountPaid;
+        if (amountOwed <= 0) continue;
+        outstandingPayments.push({
+            id: currentBill.payments.length + 1,
+            billId: currentBill.id,
+            paidTo: currentBill.user,
+            paidBy: req.user.id,
+            status: 'Unpaid',
+            amount: amountOwed
+        });
     }
 
     res.render('bills/home', {
@@ -28,6 +46,12 @@ router.get('/', utils.requireAuth(0), async function(req, res) {
         bills: bills,
         outstandingPayments: outstandingPayments
     });
+});
+
+router.post('/payments', utils.requireAuth(0), async function(req, res) {
+    let body = req.body;
+    let payment = await db.createPayment(body);
+    res.json(payment);
 });
 
 router.patch('/payments/:paymentId', utils.requireAuth(0), async function(req, res) {
