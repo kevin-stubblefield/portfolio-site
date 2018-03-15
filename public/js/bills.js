@@ -92,7 +92,6 @@ let onAddBillClicked = function() {
 }
 
 let onSaveClicked = function() {
-    console.log('save');
     let amount = document.getElementById('new-amount');
     let category = document.getElementById('new-category');
     let image = document.getElementById('new-image');
