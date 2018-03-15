@@ -83,6 +83,10 @@ module.exports = {
         return Task.query().patch(task).where('id', taskId);
     },
 
+    createBill: function(body) {
+        return Bill.query().insert(body);
+    },
+
     getBills: function(userId) {
         return Bill.query().eager('payments(awaitingVerification).paidBy').where('user_id', userId).where('paid', false);
     },

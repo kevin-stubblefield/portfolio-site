@@ -44,8 +44,15 @@ router.get('/', utils.requireAuth(0), async function(req, res) {
     res.render('bills/home', {
         title: req.user.displayName + '\'s Bills',
         bills: bills,
-        outstandingPayments: outstandingPayments
+        outstandingPayments: outstandingPayments,
+        userId: req.user.id
     });
+});
+
+router.post('/', utils.requireAuth(0), async function(req, res) {
+    let body = req.body;
+    let bill = await db.createBill(body);
+    res.json(bill);
 });
 
 router.post('/payments', utils.requireAuth(0), async function(req, res) {

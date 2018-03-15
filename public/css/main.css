@@ -565,7 +565,7 @@ td.awaiting span {
     border-radius: 2px;
 }
 
-input.pay-input {
+.pay-input {
     padding: 0 15px;
     width: 5rem;
     margin-right: 15px;
@@ -573,6 +573,10 @@ input.pay-input {
     border-radius: 5px;
     font-size: 1rem;
     color: #777;
+}
+
+select.pay-input {
+    width: 100%;
 }
 
 tr.outstanding {
