@@ -24,15 +24,14 @@ router.post('/authenticate', async function (req, res) {
         });
     }
 
-    let userToken = _.pick(user, 'id', 'username', 'displayName', 'role');
-    var token = jwt.sign(userToken, process.env.TOKEN_SECRET, {
+    var token = jwt.sign(user, process.env.TOKEN_SECRET, {
         expiresIn: "1d"
     });
 
     if (body.fromBrowser === "true") {
         res.cookie('token', token, {
             expire: new Date() + 86400000
-        }).redirect('/');
+        }).redirect('/blog/createPost');
     } else {
         res.json({
             success: true,
@@ -41,21 +40,24 @@ router.post('/authenticate', async function (req, res) {
     }
 });
 
-router.post('/signup', async function (req, res) {
+router.post('/signup', function (req, res) {
     // var body = _.pick(req.body, 'username', 'password');
 
-    // if (body.hasOwnProperty('password') && (body.password.length < 8 || body.password.length > 200)) {
-    //     return res.status(400).render('error', { errorCode: 400, errorMessage: 'Bad Request', title: '400 Bad Request' });
+    // if (body.hasOwnProperty('password') && (body.password.length < 8 || body.password.length > 99)) {
+    //     return res.status(400).render('400', { title: '400 Bad Request' });
     // }
 
-    // try {
-    //     await db.createUser(body);
-    // } catch(e) {
-    //     console.error('Could not sign up user', e);
-    //     return res.status(500).send();
-    // }
-    
-    // res.redirect('/');
+    // var newUser = new User(body);
+
+    // newUser
+    //     .save()
+    //     .then(function (user) {
+    //         return res.redirect('/');
+    //     })
+    //     .catch(function (error) {
+    //         console.error('Could not sign up user', error);
+    //         return res.status(500).send();
+    //     });
 });
 
 router.get('/login', function (req, res) {

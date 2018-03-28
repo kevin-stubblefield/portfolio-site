@@ -63,9 +63,7 @@ h2,
 h3,
 h4,
 h5,
-h6,
-thead,
-tbody {
+h6 {
     font-family: 'Ubuntu', sans-serif;
     text-decoration: none;
     color: #777;
@@ -459,132 +457,6 @@ TODO DASHBOARD
 
 #menu-button:hover .fa {
     color: #fff;
-}
-
-/*****************
-BILLS
-*****************/
-
-.paid.button {
-    padding: 0 15px;
-    margin: 0;
-}
-
-.ledger-title {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    align-items: flex-end;
-}
-
-.bills {
-    display: table;
-    border-collapse: separate;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #bbb;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 6px -5px #444;
-}
-
-.bills thead {
-    font-size: 1.4rem;
-}
-
-.bills thead th {
-    padding: 15px 0;
-    border-bottom: 1px solid #bbb;
-}
-
-.bills tbody {
-    font-size: 1.1rem;
-}
-
-.bills tbody tr.bill {
-    background: rgb(240, 240, 240);
-}
-
-.bills tbody tr.bill:hover,
-.bills tbody tr.bill.odd:hover {
-    cursor: pointer;
-    background: rgb(230, 230, 230);
-}
-
-.bills tbody tr.bill.odd {
-    background: #fff;
-}
-
-.bills td {
-    text-align: center;
-    padding: 15px;
-}
-
-.bills td.payments {
-    padding: 0;
-    background: #fff;
-}
-
-.bills td.message {
-    cursor: default;
-    border-radius: 0;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.bills td.message.complete {
-    background: rgb(208, 221, 191);
-}
-
-.bills td.amount {
-    text-align: right;
-}
-
-.bills .hide {
-    display: none;
-}
-
-.payments {
-    width: 100%;
-}
-
-thead tr.payment-head {
-    background: rgb(208, 221, 191);
-}
-
-tbody tr.payment {
-    background: #fff;
-}
-
-tbody tr.payment.odd {
-    background: rgb(208, 221, 191);
-}
-
-td.awaiting span {
-    background-color: #ffcccc;
-    padding: 5px;
-    border-radius: 2px;
-}
-
-.pay-input {
-    padding: 0 15px;
-    width: 5rem;
-    margin-right: 15px;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #777;
-}
-
-select.pay-input {
-    width: 100%;
-}
-
-tr.outstanding {
-    background: rgb(240, 240, 240);
-}
-
-tr.outstanding:nth-of-type(even) {
-    background: #fff;
 }
 
 /*****************

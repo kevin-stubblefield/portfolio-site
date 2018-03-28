@@ -28,13 +28,13 @@ router.get('/', utils.getUser, async function (req, res) {
     });
 });
 
-router.get('/createPost', utils.requireAuth(1), function (req, res) {
+router.get('/createPost', utils.requireAuth, function (req, res) {
     res.render('createPost', {
         title: 'Write New Post'
     });
 });
 
-router.get('/editPost/:id', utils.requireAuth(1), async function(req, res) {
+router.get('/editPost/:id', utils.requireAuth, async function(req, res) {
     var postId = req.params.id;
     var post = await db.getPostById(postId);
 
@@ -68,7 +68,7 @@ router.get('/:url', utils.getUser, async function (req, res) {
     });
 });
 
-router.post('/', utils.requireAuth(1), async function (req, res) {
+router.post('/', utils.requireAuth, async function (req, res) {
     var body = _.pick(req.body, 'title', 'markdownContent', 'fromBrowser');
 
     if (body.markdownContent.trim() === '') {
@@ -88,7 +88,7 @@ router.post('/', utils.requireAuth(1), async function (req, res) {
     }
 });
 
-router.post('/:id', utils.requireAuth(1), async function(req, res) {
+router.post('/:id', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'title', 'markdownContent');
     var postId = req.params.id;
     var post = await db.patchPost(postId, body);

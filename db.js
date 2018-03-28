@@ -1,10 +1,8 @@
-let User = require('./models/user');
-let Post = require('./models/post');
-let Message = require('./models/message');
-let Project = require('./models/todo/project');
-let Task = require('./models/todo/task');
-let Bill = require('./models/ledger/bill');
-let Payment = require('./models/ledger/payment');
+var User = require('./models/user');
+var Post = require('./models/post');
+var Message = require('./models/message');
+var Project = require('./models/todo/project');
+var Task = require('./models/todo/task');
 
 module.exports = {
     createUser: function(user) {
@@ -13,10 +11,6 @@ module.exports = {
 
     getUsers: function() {
         return User.query();
-    },
-
-    getOtherUsers: function(userId) {
-        return User.query().where('id', '!=', userId).eager('bills(notPaid)');
     },
 
     getUserByUsername: function(username) {
@@ -81,29 +75,5 @@ module.exports = {
 
     patchTask: function(taskId, task) {
         return Task.query().patch(task).where('id', taskId);
-    },
-
-    createBill: function(body) {
-        return Bill.query().insert(body);
-    },
-
-    getBills: function(userId) {
-        return Bill.query().eager('payments(awaitingVerification).paidBy').where('user_id', userId).where('paid', false);
-    },
-
-    getOtherUsersBills: function(userId) {
-        return Bill.query().eager('[payments, user]').where('user_id', '!=', userId).where('paid', false);
-    },
-
-    getPaymentsAwaitingVerification: function(userId) {
-        return Payment.query().eager('[paidBy, paidTo]').where('paid_by', userId).where('status', '!=', 'Verified');
-    },
-
-    patchPayment: function(paymentId, body) {
-        return Payment.query().patchAndFetchById(paymentId, body).eager('bill');
-    },
-
-    createPayment: function(body) {
-        return Payment.query().insert(body);
     }
 }

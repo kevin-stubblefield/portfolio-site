@@ -33,14 +33,14 @@ router.get('/:id', async function(req, res) {
     res.json(project);
 });
 
-router.post('/', utils.requireAuth(1), async function(req, res) {
+router.post('/', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'title', 'description', 'category');
 
     var project = await db.createProject(body);
     res.status(200).json(project);
 });
 
-router.patch('/:id', utils.requireAuth(1), async function(req, res) {
+router.patch('/:id', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'title', 'description');
 
     var projectId = req.params.id;
@@ -48,13 +48,13 @@ router.patch('/:id', utils.requireAuth(1), async function(req, res) {
     await db.patchProject(projectId, body);
 });
 
-router.delete('/:id', utils.requireAuth(1), async function(req, res) {
+router.delete('/:id', utils.requireAuth, async function(req, res) {
     var projectId = req.params.id;
     
     await db.deleteProject(projectId);
 });
 
-router.post('/:id', utils.requireAuth(1), async function(req, res) {
+router.post('/:id', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'description');
 
     body.projectId = req.params.id;
@@ -64,20 +64,20 @@ router.post('/:id', utils.requireAuth(1), async function(req, res) {
     res.status(200).json(newTask);
 });
 
-router.patch('/tasks/complete/:taskId', utils.requireAuth(1), async function(req, res) {
+router.patch('/tasks/complete/:taskId', utils.requireAuth, async function(req, res) {
     var taskId = req.params.taskId;
 
     await db.patchTask(taskId, { complete: true });
 });
 
-router.patch('/tasks/:taskId', utils.requireAuth(1), async function(req, res) {
+router.patch('/tasks/:taskId', utils.requireAuth, async function(req, res) {
     var body = _.pick(req.body, 'description');
     var taskId = req.params.taskId;
 
     await db.patchTask(taskId, body);
 });
 
-router.delete('/tasks/:taskId', utils.requireAuth(1), async function(req, res) {
+router.delete('/tasks/:taskId', utils.requireAuth, async function(req, res) {
     var taskId = req.params.taskId;
 
     await db.deleteTask(taskId);

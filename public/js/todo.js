@@ -146,7 +146,7 @@ function update() {
         projectHeader.removeChild(addButton);
     }
 
-    if (isLoggedIn() && isAuthorized()) {
+    if (isLoggedIn()) {
         projectDescription.setAttribute('onclick', 'onProjectDescriptionClick(this)');
         var button = document.createElement('button');
         button.setAttribute('id', 'add-task-button');
@@ -200,7 +200,7 @@ function makeTaskListItem(body) {
     span.appendChild(text);
     li.appendChild(span);
 
-    if (isLoggedIn() && isAuthorized()) {
+    if (isLoggedIn()) {
         var icons = generateIcons();
         li.appendChild(icons);
     }
@@ -306,8 +306,4 @@ function enterEditProjectMode(parent, title) {
 
 function isLoggedIn() {
     return Object.keys(user).length > 0;
-}
-
-function isAuthorized() {
-    return user.role > 0;
 }

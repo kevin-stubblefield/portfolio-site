@@ -41,44 +41,8 @@ class User extends Model {
         return 'users';
     }
 
-    static get relationMappings() {
-        return {
-            bills: {
-                relation: Model.HasManyRelation,
-                modelClass: __dirname + '/ledger/bill',
-                join: {
-                    from: 'users.id',
-                    to: 'bills.user_id'
-                }
-            },
-
-            receivedPayments: {
-                relation: Model.HasManyRelation,
-                modelClass: __dirname + '/ledger/payment',
-                join: {
-                    from: 'users.id',
-                    to: 'payments.paid_to'
-                }
-            },
-
-            sentPayments: {
-                relation: Model.HasManyRelation,
-                modelClass: __dirname + '/ledger/payment',
-                join: {
-                    from: 'users.id',
-                    to: 'payments.paid_by'
-                }
-            }
-        }
-    }
-
     $beforeInsert() {
         this.password = bcrypt.hashSync(this.password, 12);
-        this.displayName = this.username;
-    }
-
-    $afterGet() {
-        this.displayName = _.capitalize(this.displayName);
     }
     
     $formatDatabaseJson(json) {
